@@ -11,9 +11,11 @@
       padding: 0;
       box-sizing: border-box;
     }
+
     body {
       font-family: 'Arial', sans-serif;
       background-color: #f4f4f4;
+      overflow-x: hidden;
     }
 
     #loader {
@@ -62,6 +64,7 @@
       background-color: #000;
       color: white;
       padding: 15px;
+      animation: fadeIn 1s ease-in-out;
     }
 
     nav ul {
@@ -79,6 +82,7 @@
 
     section {
       padding: 40px 20px;
+      animation: fadeInUp 1s ease-in-out;
     }
 
     h2 {
@@ -99,7 +103,14 @@
       padding: 15px;
       text-align: center;
       border-radius: 8px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease-in-out forwards;
     }
+
+    .producto:nth-child(1) { animation-delay: 0.2s; }
+    .producto:nth-child(2) { animation-delay: 0.4s; }
+    .producto:nth-child(3) { animation-delay: 0.6s; }
 
     .producto img {
       width: 100%;
@@ -110,6 +121,23 @@
 
     .oculto {
       display: none;
+    }
+
+    /* Animaciones */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
@@ -180,5 +208,3 @@
   </script>
 </body>
 </html>
-
-
