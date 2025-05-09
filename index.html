@@ -6,100 +6,190 @@
     <title>Los BelicosMX</title>
     <link rel="stylesheet" href="menu.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
-        nav {
-            background-color: black;
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        /* Pantalla de carga */
+        #loader {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: black;
             color: white;
-            padding: 10px;
-        }
-        nav ul {
-            list-style: none;
             display: flex;
-            gap: 20px;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            z-index: 9999;
         }
+
+        /* Pantalla de bienvenida */
+        #welcome-screen {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('F.jpg') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            z-index: 999;
+        }
+
+        #welcome-screen h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        #welcome-screen button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            background-color: #ff0000;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        nav {
+            background-color: #000;
+            color: white;
+            padding: 15px;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            list-style: none;
+        }
+
         nav ul li a {
             color: white;
             text-decoration: none;
+            font-weight: bold;
         }
+
         section {
-            padding: 20px;
+            padding: 40px 20px;
         }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
         .productos {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
+            gap: 20px;
+            padding: 0 20px;
         }
+
         .producto {
+            background: white;
             border: 1px solid #ccc;
-            padding: 10px;
+            padding: 15px;
             text-align: center;
+            border-radius: 8px;
         }
+
         .producto img {
             width: 100%;
-            height: auto;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .oculto {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <nav>
-        <h1>Los BelicosMX</h1>
-        <ul>
-            <li><a href="galeria.html">Galería</a></li>
-            <li><a href="suma1.php">Acerca</a></li>
-            <li><a href="suma1.php">Contacto</a></li>
-        </ul>
-    </nav>
 
-    <section>
-        <h2>Bienvenido a Los BelicosMX</h2>
-        <p>Tu tienda de ropa urbana y estilo bélico</p>
-        <img src="F.jpg" alt="Imagen principal" width="300">
-    </section>
+    <!-- Pantalla de carga -->
+    <div id="loader">Cargando tienda...</div>
 
-    <section>
-        <h2>Ropa</h2>
-        <div class="productos">
-            <div class="producto">
-                <img src="camisa1.jpg" alt="Camisa 1">
-                <p>Camisa Negra Estilo Belico - $450</p>
-            </div>
-            <div class="producto">
-                <img src="pantalon1.jpg" alt="Pantalón 1">
-                <p>Pantalón Cargo Táctico - $550</p>
-            </div>
-        </div>
-    </section>
+    <!-- Pantalla de bienvenida -->
+    <div id="welcome-screen">
+        <h1>Bienvenido a Los BelicosMX</h1>
+        <button onclick="accederTienda()">ACCEDER A LA TIENDA</button>
+    </div>
 
-    <section>
-        <h2>Gorras</h2>
-        <div class="productos">
-            <div class="producto">
-                <img src="gorra1.jpg" alt="Gorra 1">
-                <p>Gorra Negra Los BelicosMX - $250</p>
-            </div>
-            <div class="producto">
-                <img src="gorra2.jpg" alt="Gorra 2">
-                <p>Gorra Camo Verde - $270</p>
-            </div>
-        </div>
-    </section>
+    <!-- Contenido principal -->
+    <div id="main-content" class="oculto">
+        <nav>
+            <ul>
+                <li><a href="#ropa">Ropa</a></li>
+                <li><a href="#gorras">Gorras</a></li>
+                <li><a href="#accesorios">Accesorios</a></li>
+            </ul>
+        </nav>
 
-    <section>
-        <h2>Accesorios</h2>
-        <div class="productos">
-            <div class="producto">
-                <img src="cadena1.jpg" alt="Cadena 1">
-                <p>Cadena Plateada Estilo Bélico - $300</p>
+        <section id="ropa">
+            <h2>Ropa</h2>
+            <div class="productos">
+                <div class="producto">
+                    <img src="camisa1.jpg" alt="Camisa">
+                    <p>Camisa Negra Bélica - $450</p>
+                </div>
+                <div class="producto">
+                    <img src="pantalon1.jpg" alt="Pantalón">
+                    <p>Pantalón Cargo Táctico - $550</p>
+                </div>
             </div>
-            <div class="producto">
-                <img src="lentes1.jpg" alt="Lentes 1">
-                <p>Lentes Oscuros - $180</p>
+        </section>
+
+        <section id="gorras">
+            <h2>Gorras</h2>
+            <div class="productos">
+                <div class="producto">
+                    <img src="gorra1.jpg" alt="Gorra 1">
+                    <p>Gorra Negra - $250</p>
+                </div>
+                <div class="producto">
+                    <img src="gorra2.jpg" alt="Gorra 2">
+                    <p>Gorra Camuflada - $270</p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <section id="accesorios">
+            <h2>Accesorios</h2>
+            <div class="productos">
+                <div class="producto">
+                    <img src="cadena1.jpg" alt="Cadena">
+                    <p>Cadena Bélica - $300</p>
+                </div>
+                <div class="producto">
+                    <img src="lentes1.jpg" alt="Lentes">
+                    <p>Lentes Oscuros - $180</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Pantalla de carga
+        window.addEventListener('load', function () {
+            document.getElementById('loader').style.display = 'none';
+        });
+
+        // Acceso a la tienda
+        function accederTienda() {
+            document.getElementById('welcome-screen').style.display = 'none';
+            document.getElementById('main-content').classList.remove('oculto');
+        }
+    </script>
 </body>
 </html>
