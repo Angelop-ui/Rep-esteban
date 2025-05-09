@@ -27,14 +27,6 @@
             justify-content: center;
             font-size: 2rem;
             z-index: 9999;
-            animation: fadeOut 2s ease 2s forwards;
-        }
-
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-                visibility: hidden;
-            }
         }
 
         #welcome-screen {
@@ -49,13 +41,11 @@
             text-align: center;
             color: white;
             z-index: 999;
-            animation: fadeIn 1s ease;
         }
 
         #welcome-screen h1 {
             font-size: 3rem;
             margin-bottom: 20px;
-            animation: slideDown 1s ease;
         }
 
         #welcome-screen button {
@@ -66,33 +56,6 @@
             color: white;
             cursor: pointer;
             border-radius: 5px;
-            animation: bounce 1.5s infinite;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideDown {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-10px);
-            }
-            60% {
-                transform: translateY(-5px);
-            }
-        }
-
-        #main-content {
-            display: none;
         }
 
         nav {
@@ -136,11 +99,6 @@
             padding: 15px;
             text-align: center;
             border-radius: 8px;
-            transition: transform 0.3s ease;
-        }
-
-        .producto:hover {
-            transform: scale(1.05);
         }
 
         .producto img {
@@ -157,16 +115,13 @@
 </head>
 <body>
 
-    <!-- Pantalla de carga -->
     <div id="loader">Cargando tienda...</div>
 
-    <!-- Pantalla de bienvenida -->
     <div id="welcome-screen">
         <h1>Bienvenido a Los BelicosMX</h1>
         <button onclick="accederTienda()">ACCEDER A LA TIENDA</button>
     </div>
 
-    <!-- Contenido principal -->
     <div id="main-content" class="oculto">
         <nav>
             <ul>
@@ -176,7 +131,6 @@
             </ul>
         </nav>
 
-        <!-- Sección Tendencia -->
         <section id="tendencia">
             <h2>Tendencia</h2>
             <div class="productos">
@@ -188,7 +142,6 @@
                     <img src="pantalon1.jpg" alt="Pantalón">
                     <p>Pantalón Cargo Táctico - $550</p>
                 </div>
-                <!-- Nuevo producto sudadera -->
                 <div class="producto">
                     <img src="sudadera1.jpg" alt="Sudadera">
                     <p>Sudadera Bélica Negra - $600</p>
@@ -196,22 +149,20 @@
             </div>
         </section>
 
-        <!-- Sección Gorras -->
         <section id="gorras">
             <h2>Gorras</h2>
             <div class="productos">
                 <div class="producto">
-                    <img src="gorra1.jpg" alt="Gorra 1">
+                    <a href="gorras.html"><img src="gorra1.jpg" alt="Gorra 1"></a>
                     <p>Gorra Negra - $250</p>
                 </div>
                 <div class="producto">
-                    <img src="gorra2.jpg" alt="Gorra 2">
+                    <a href="gorras.html"><img src="gorra2.jpg" alt="Gorra 2"></a>
                     <p>Gorra Camuflada - $270</p>
                 </div>
             </div>
         </section>
 
-        <!-- Sección Moda -->
         <section id="moda">
             <h2>Moda</h2>
             <div class="productos">
@@ -223,7 +174,6 @@
                     <img src="lentes1.jpg" alt="Lentes">
                     <p>Lentes Oscuros - $180</p>
                 </div>
-                <!-- Nuevo producto reloj -->
                 <div class="producto">
                     <img src="jacobreloj.jpg" alt="Reloj Jacob & Co">
                     <p>Reloj Jacob & Co - $2,500</p>
@@ -233,12 +183,10 @@
     </div>
 
     <script>
-        // Pantalla de carga
         window.addEventListener('load', function () {
             document.getElementById('loader').style.display = 'none';
         });
 
-        // Acceso a la tienda
         function accederTienda() {
             document.getElementById('welcome-screen').style.display = 'none';
             document.getElementById('main-content').classList.remove('oculto');
