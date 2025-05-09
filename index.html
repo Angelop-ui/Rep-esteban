@@ -14,9 +14,24 @@
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f4f4;
+            overflow-x: hidden;
         }
 
-        /* Pantalla de carga */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            0% { transform: translateY(100%); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
         #loader {
             position: fixed;
             width: 100%;
@@ -28,9 +43,9 @@
             justify-content: center;
             font-size: 2rem;
             z-index: 9999;
+            animation: pulse 1.5s infinite;
         }
 
-        /* Pantalla de bienvenida */
         #welcome-screen {
             position: fixed;
             width: 100%;
@@ -43,11 +58,13 @@
             text-align: center;
             color: white;
             z-index: 999;
+            animation: fadeIn 1.2s ease-out;
         }
 
         #welcome-screen h1 {
             font-size: 3rem;
             margin-bottom: 20px;
+            animation: fadeIn 2s ease;
         }
 
         #welcome-screen button {
@@ -58,12 +75,19 @@
             color: white;
             cursor: pointer;
             border-radius: 5px;
+            transition: transform 0.3s ease;
+            animation: fadeIn 2.2s ease;
+        }
+
+        #welcome-screen button:hover {
+            transform: scale(1.1);
         }
 
         nav {
             background-color: #000;
             color: white;
             padding: 15px;
+            animation: slideUp 1s ease-in-out;
         }
 
         nav ul {
@@ -77,15 +101,34 @@
             color: white;
             text-decoration: none;
             font-weight: bold;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: white;
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
         }
 
         section {
             padding: 40px 20px;
+            animation: fadeIn 1.5s ease;
         }
 
         h2 {
             text-align: center;
             margin-bottom: 20px;
+            font-size: 2rem;
+            animation: fadeIn 2s ease-in;
         }
 
         .productos {
@@ -101,6 +144,13 @@
             padding: 15px;
             text-align: center;
             border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .producto:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
         .producto img {
@@ -108,6 +158,7 @@
             height: 200px;
             object-fit: cover;
             margin-bottom: 10px;
+            border-radius: 6px;
         }
 
         .oculto {
@@ -117,16 +168,13 @@
 </head>
 <body>
 
-    <!-- Pantalla de carga -->
     <div id="loader">Cargando tienda...</div>
 
-    <!-- Pantalla de bienvenida -->
     <div id="welcome-screen">
         <h1>Bienvenido a Los BelicosMX</h1>
         <button onclick="accederTienda()">ACCEDER A LA TIENDA</button>
     </div>
 
-    <!-- Contenido principal -->
     <div id="main-content" class="oculto">
         <nav>
             <ul>
@@ -180,12 +228,10 @@
     </div>
 
     <script>
-        // Pantalla de carga
         window.addEventListener('load', function () {
             document.getElementById('loader').style.display = 'none';
         });
 
-        // Acceso a la tienda
         function accederTienda() {
             document.getElementById('welcome-screen').style.display = 'none';
             document.getElementById('main-content').classList.remove('oculto');
