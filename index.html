@@ -60,6 +60,48 @@
       border-radius: 5px;
     }
 
+    /* NAVEGACIÓN MOVIBLE */
+    .nav-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-scroll {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+      padding: 10px 40px;
+      scrollbar-width: none;
+    }
+
+    .nav-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #111;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      z-index: 10;
+      font-size: 18px;
+    }
+
+    .nav-arrow.left {
+      left: 0;
+    }
+
+    .nav-arrow.right {
+      right: 0;
+    }
+
     nav {
       background-color: #000;
       color: white;
@@ -152,13 +194,17 @@
 
   <div id="main-content" class="oculto">
     <nav>
-      <ul>
-        <li><a href="#ropa">rRopa</a></li>
-        <li><a href="gorras.html">Gorras</a></li>
-        <li><a href="#accesorios">Accesorios</a></li>
-        <li><a href="#tenis">Tenis</a></li>
-        <li><a href="#elegante">Elegante</a></li>
-      </ul>
+      <div class="nav-wrapper">
+        <button class="nav-arrow left" onclick="moveNav('left')">←</button>
+        <ul class="nav-scroll">
+          <li><a href="#ropa">Ropa</a></li>
+          <li><a href="gorras.html">Gorras</a></li>
+          <li><a href="#accesorios">Accesorios</a></li>
+          <li><a href="#tenis">Tenis</a></li>
+          <li><a href="#elegante">Elegante</a></li>
+        </ul>
+        <button class="nav-arrow right" onclick="moveNav('right')">→</button>
+      </div>
     </nav>
 
     <section id="tendencia">
@@ -207,6 +253,13 @@
       document.getElementById('welcome-screen').style.display = 'none';
       document.getElementById('main-content').classList.remove('oculto');
     }
+
+    function moveNav(direction) {
+      const navScroll = document.querySelector('.nav-scroll');
+      const scrollAmount = direction === 'left' ? -100 : 100;
+      navScroll.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
   </script>
 </body>
 </html>
+
