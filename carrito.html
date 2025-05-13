@@ -71,7 +71,7 @@
       padding: 20px;
       border-radius: 8px;
     }
-    .checkout-container input {
+    .checkout-container input, .checkout-container select {
       padding: 10px;
       width: 100%;
       margin-bottom: 15px;
@@ -117,30 +117,33 @@
   <div class="carrito-container">
     <h2>Carrito de Compras</h2>
     <div id="productos-container"></div>
-
     <div class="total">
       Total: $<span id="total">0</span>
     </div>
-
     <button class="comprar-btn" onclick="irACheckout()">Comprar</button>
   </div>
 
   <div class="checkout-container" id="checkout" style="display:none;">
     <h2>Proceso de Compra</h2>
-    <h3>Ingrese sus datos de pago</h3>
+    <h3>Ingrese sus datos</h3>
     <input type="text" id="nombre" placeholder="Nombre completo" required>
     <input type="email" id="email" placeholder="Correo electrónico" required>
     <input type="text" id="direccion" placeholder="Dirección de envío" required>
 
-    <h3>Elija su método de pago:</h3>
-    <label for="metodo-pago">Seleccione:</label>
-    <select id="metodo-pago">
+    <h3>Método de pago</h3>
+    <select id="metodo-pago" onchange="mostrarCamposTarjeta()">
       <option value="tarjeta">Pago con tarjeta</option>
       <option value="oxxo">Pago en Oxxo</option>
     </select>
 
-    <button onclick="finalizarCompra()">Aceptar</button>
+    <div id="datos-tarjeta" style="display:none;">
+      <input type="text" id="num-tarjeta" placeholder="Número de tarjeta (16 dígitos)" maxlength="16">
+      <input type="text" id="nombre-tarjeta" placeholder="Nombre del titular">
+      <input type="text" id="expira" placeholder="Fecha de expiración (MM/AA)" maxlength="5">
+      <input type="text" id="cvv" placeholder="CVV (3 dígitos)" maxlength="3">
+    </div>
 
+    <button onclick="finalizarCompra()">Aceptar</button>
     <div id="codigoPago" class="codigo-pago"></div>
   </div>
 
@@ -180,7 +183,6 @@
       document.getElementById(id).remove();
       total -= precio;
       document.getElementById('total').textContent = total;
-
       const productos = JSON.parse(localStorage.getItem("carrito")) || [];
       productos.splice(index, 1);
       localStorage.setItem("carrito", JSON.stringify(productos));
@@ -191,6 +193,11 @@
       document.getElementById('checkout').style.display = "block";
     }
 
+    function mostrarCamposTarjeta() {
+      const metodo = document.getElementById('metodo-pago').value;
+      document.getElementById('datos-tarjeta').style.display = metodo === 'tarjeta' ? 'block' : 'none';
+    }
+
     function finalizarCompra() {
       const metodoPago = document.getElementById('metodo-pago').value;
       let codigoPago = '';
@@ -199,6 +206,16 @@
         codigoPago = generarCodigoPago();
         document.getElementById('codigoPago').textContent = 'Código de pago OXXO: ' + codigoPago;
       } else if (metodoPago === 'tarjeta') {
+        const numTarjeta = document.getElementById('num-tarjeta').value;
+        const nombreTarjeta = document.getElementById('nombre-tarjeta').value;
+        const expira = document.getElementById('expira').value;
+        const cvv = document.getElementById('cvv').value;
+
+        if (numTarjeta.length !== 16 || cvv.length !== 3 || expira.length !== 5 || nombreTarjeta.trim() === '') {
+          alert('Por favor completa correctamente los datos de la tarjeta.');
+          return;
+        }
+
         let descuento = total * 0.2;
         total -= descuento;
         codigoPago = 'Pago con tarjeta aplicado, total con descuento: $' + total.toFixed(2);
