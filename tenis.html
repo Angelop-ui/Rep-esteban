@@ -6,40 +6,31 @@
   <title>Tenis - Los BelicosMX</title>
   <style>
     body {
-      margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background-color: #0b0b0b;
       color: white;
-      position: relative;
+      margin: 0;
+      padding: 20px;
     }
 
-    section {
-      padding: 40px 20px;
-    }
-
-    h2 {
-      font-size: 2rem;
-      color: #ffd700;
+    h1 {
       text-align: center;
-      margin-bottom: 25px;
+      color: #ffd700;
     }
 
     .productos {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: 20px;
-      padding: 0 20px;
+      margin-top: 20px;
     }
 
     .producto {
-      background: white;
-      border: 1px solid #ccc;
+      background-color: white;
+      color: black;
       padding: 15px;
+      border-radius: 10px;
       text-align: center;
-      border-radius: 8px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s ease-in-out forwards;
     }
 
     .producto img {
@@ -49,61 +40,60 @@
       margin-bottom: 10px;
     }
 
-    .producto p {
-      color: #111;
-      font-weight: bold;
-    }
-
-    button {
+    .producto button {
       background-color: #ffd700;
       color: black;
       border: none;
-      padding: 15px 30px;
-      font-size: 1.2rem;
+      padding: 10px 15px;
       font-weight: bold;
       border-radius: 8px;
       cursor: pointer;
-      display: block;
-      margin: 20px auto;
+      margin-top: 10px;
     }
 
-    button:hover {
+    .producto button:hover {
       background-color: #e6c200;
     }
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .volver {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .volver a {
+      color: #ffd700;
+      font-weight: bold;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
-
-  <section id="productos-tenis">
-    <h2>Tenis Bélicos</h2>
-    <div class="productos">
-      <div class="producto">
-        <img src="tenis1.jpg" alt="Tenis 1">
-        <p>Tenis Modelo X - $1,200</p>
-      </div>
-      <div class="producto">
-        <img src="tenis2.jpg" alt="Tenis 2">
-        <p>Tenis Modelo Y - $1,500</p>
-      </div>
-      <div class="producto">
-        <img src="tenis3.jpg" alt="Tenis 3">
-        <p>Tenis Modelo Z - $1,800</p>
-      </div>
+  <h1>Tenis Bélicos</h1>
+  <div class="productos">
+    <div class="producto">
+      <img src="tenis1.jpg" alt="Tenis 1">
+      <p>Tenis Nike Air - $1,200</p>
+      <button onclick="agregarAlCarrito('Tenis Nike Air', 1200, 'tenis1.jpg')">Agregar al carrito</button>
     </div>
-  </section>
+    <div class="producto">
+      <img src="tenis2.jpg" alt="Tenis 2">
+      <p>Tenis Jordan Low - $1,500</p>
+      <button onclick="agregarAlCarrito('Tenis Jordan Low', 1500, 'tenis2.jpg')">Agregar al carrito</button>
+    </div>
+  </div>
 
-  <button onclick="window.location.href='index.html'">Regresar a la tienda</button>
+  <div class="volver">
+    <a href="index.html">← Regresar a la tienda</a>
+  </div>
 
+  <script>
+    function agregarAlCarrito(nombre, precio, imagen) {
+      const producto = { nombre, precio, imagen };
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      carrito.push(producto);
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      alert('Producto agregado al carrito');
+    }
+  </script>
 </body>
 </html>
