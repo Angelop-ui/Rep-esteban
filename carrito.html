@@ -97,6 +97,19 @@
       margin-top: 10px;
       color: #fff;
     }
+    .regresar-btn {
+      padding: 15px 30px;
+      background-color: #28a745;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      color: white;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .regresar-btn:hover {
+      background-color: #218838;
+    }
   </style>
 </head>
 <body>
@@ -157,23 +170,26 @@
     <div id="codigoPago" class="codigo-pago"></div>
   </div>
 
-  <script>
-    let total = 1600; // Total inicial
+  <div id="mensajeGracias" style="display:none;">
+    <h2>¡Gracias por tu compra!</h2>
+    <p id="mensajeFinal"></p>
+    <button class="regresar-btn" onclick="regresarATienda()">Regresar a la tienda</button>
+  </div>
 
-    // Eliminar producto
+  <script>
+    let total = 1600;
+
     function eliminarProducto(id, precio) {
       document.getElementById(id).style.display = "none";
       total -= precio;
       document.getElementById('total').textContent = total;
     }
 
-    // Ir al checkout
     function irACheckout() {
       document.querySelector('.carrito-container').style.display = "none";
       document.getElementById('checkout').style.display = "block";
     }
 
-    // Finalizar compra y generar código de pago
     function finalizarCompra() {
       const metodoPago = document.getElementById('metodo-pago').value;
       let codigoPago = '';
@@ -182,16 +198,23 @@
         codigoPago = 'Código OXXO: ' + generarCodigoPago();
         document.getElementById('codigoPago').textContent = 'Código de pago OXXO: ' + codigoPago;
       } else if (metodoPago === 'tarjeta') {
-        let descuento = total * 0.2; // 20% de descuento
+        let descuento = total * 0.2;
         total -= descuento;
         codigoPago = 'Pago con tarjeta aplicado, total con descuento: $' + total.toFixed(2);
         document.getElementById('codigoPago').textContent = codigoPago;
       }
+
+      document.getElementById('checkout').style.display = "none";
+      document.getElementById('mensajeGracias').style.display = "block";
+      document.getElementById('mensajeFinal').textContent = metodoPago === 'oxxo' ? 'Pago realizado a través de OXXO. Código generado: ' + codigoPago : 'Pago realizado con tarjeta. Total con descuento: $' + total.toFixed(2);
     }
 
-    // Función para generar código de pago
     function generarCodigoPago() {
       return Math.random().toString(36).substr(2, 9).toUpperCase();
+    }
+
+    function regresarATienda() {
+      window.location.href = 'index.html';
     }
   </script>
 
