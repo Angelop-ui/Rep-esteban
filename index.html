@@ -3,134 +3,120 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Los BelicosMX</title>
-  <link rel="stylesheet" href="menu.css" />
+  <title>Los BelicosMX - Tienda Oficial</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f4f4f4;
-      overflow-x: hidden;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0b0b0b;
+      color: white;
+      position: relative;
     }
 
     #loader {
       position: fixed;
-      width: 100%;
-      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       background: black;
-      color: white;
+      color: #ffd700;
+      font-size: 1.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
       z-index: 9999;
     }
 
     #welcome-screen {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: url('F.jpg') no-repeat center center/cover;
+      text-align: center;
+      padding: 100px 20px;
+      background-image: url('belicos_fondo.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: white;
-      z-index: 999;
-      opacity: 0;
-      animation: fadeIn 1.5s forwards;
+      animation: fadeIn 1s ease;
     }
 
     #welcome-screen h1 {
       font-size: 3rem;
-      margin-bottom: 20px;
+      color: #ffd700;
+      text-shadow: 0 0 12px #ffd700;
+      margin-bottom: 30px;
     }
 
     #welcome-screen button {
       padding: 15px 30px;
-      font-size: 1.2rem;
+      background-color: #ffd700;
       border: none;
-      background-color: #ff0000;
-      color: white;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: black;
       cursor: pointer;
-      border-radius: 5px;
+      box-shadow: 0 0 10px #ffd700;
+      animation: bounce 1.2s infinite;
+      transition: background 0.3s;
+    }
+
+    #welcome-screen button:hover {
+      background-color: #e6c200;
+    }
+
+    .oculto {
+      display: none;
+    }
+
+    nav {
+      background-color: #111;
+      padding: 10px 0;
     }
 
     .nav-wrapper {
-      position: relative;
-      overflow: hidden;
+      display: flex;
+      align-items: center;
+      overflow-x: auto;
+      padding: 0 20px;
     }
 
     .nav-scroll {
       display: flex;
-      gap: 30px;
       list-style: none;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scroll-behavior: smooth;
-      padding: 10px 40px;
-      scrollbar-width: none;
+      padding: 0;
+      margin: 0;
     }
 
-    .nav-scroll::-webkit-scrollbar {
-      display: none;
+    .nav-scroll li {
+      margin: 0 15px;
     }
 
-    .nav-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: #111;
-      color: white;
-      border: none;
-      padding: 10px;
-      cursor: pointer;
-      z-index: 10;
-      font-size: 18px;
-    }
-
-    .nav-arrow.left {
-      left: 0;
-    }
-
-    .nav-arrow.right {
-      right: 0;
-    }
-
-    nav {
-      background-color: #000;
-      color: white;
-      padding: 15px;
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    nav ul {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      list-style: none;
-    }
-
-    nav ul li a {
+    .nav-scroll a {
       color: white;
       text-decoration: none;
       font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .nav-arrow {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
     }
 
     section {
       padding: 40px 20px;
-      animation: fadeInUp 1s ease-in-out;
     }
 
     h2 {
+      font-size: 2rem;
+      color: #ffd700;
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     .productos {
@@ -162,8 +148,17 @@
       margin-bottom: 10px;
     }
 
-    .oculto {
-      display: none;
+    .producto p {
+      color: #111;
+      font-weight: bold;
+    }
+
+    footer {
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
     }
 
     @keyframes fadeIn {
@@ -179,6 +174,67 @@
       to {
         opacity: 1;
         transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    #carrito {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #ffd700;
+      color: black;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 12px #ffd700;
+      cursor: pointer;
+      transition: background 0.3s;
+      z-index: 1000;
+    }
+
+    #carrito:hover {
+      background-color: #e6c200;
+    }
+
+    @media (max-width: 768px) {
+      #welcome-screen h1 {
+        font-size: 2.2rem;
+      }
+
+      #welcome-screen button {
+        font-size: 1rem;
+        padding: 12px 24px;
+      }
+
+      .nav-wrapper {
+        padding: 0 10px;
+      }
+
+      .nav-scroll {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .nav-scroll li {
+        margin: 8px 10px;
+      }
+
+      section {
+        padding: 20px 10px;
+      }
+
+      .producto {
+        font-size: 0.9rem;
       }
     }
   </style>
@@ -242,7 +298,13 @@
         </div>
       </div>
     </section>
+
+    <footer>
+      &copy; 2025 Los BelicosMX - Todos los derechos reservados
+    </footer>
   </div>
+
+  <button id="carrito" onclick="window.location.href='carrito.html'">🛒</button>
 
   <script>
     window.addEventListener('load', function () {
