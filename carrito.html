@@ -1,1 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito Bélico</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
 
+    header {
+      background-color: black;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 1.8rem;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .producto {
+      display: flex;
+      flex-direction: column;
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      padding: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .producto img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .producto-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .producto-info p {
+      margin: 5px 0;
+      font-size: 1.1rem;
+    }
+
+    .eliminar {
+      background-color: red;
+      color: white;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .eliminar:hover {
+      background-color: darkred;
+    }
+
+    .total {
+      text-align: right;
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-top: 30px;
+    }
+
+    .volver {
+      display: block;
+      margin: 30px auto;
+      padding: 12px 25px;
+      font-size: 1rem;
+      background-color: black;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      text-align: center;
+      width: fit-content;
+    }
+
+    @media (min-width: 600px) {
+      .producto {
+        flex-direction: row;
+        gap: 20px;
+        align-items: center;
+      }
+
+      .producto img {
+        width: 200px;
+        height: 150px;
+      }
+
+      .producto-info {
+        flex: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>Carrito Bélico</header>
+
+  <div class="container" id="carrito-container"></div>
+
+  <div class="container">
+    <div class="total" id="total">Total: $0 MXN</div>
+    <a class="volver" href="index.html">Volver a la Tienda</a>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const carritoContainer = document.getElementById('carrito-container');
+      const totalDisplay = document.getElementById('total');
+
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+      function mostrarCarrito() {
+        carritoContainer.innerHTML = '';
+        let total = 0;
+
+        if (carrito.length === 0) {
+          carritoContainer.innerHTML = '<p>No hay productos en el carrito.</p>';
+        } else {
+          carrito.forEach((producto, index) => {
+            total += producto.precio;
+
+            const div = document.createElement('div');
+            div.classList.add('producto');
+            div.innerHTML = `
+              <img src="${producto.imagen}" alt="${producto.nombre}">
+              <div class="producto-info">
+                <p>${producto.nombre}</p>
+                <p>$${producto.precio.toLocaleString()} MXN</p>
+                <button class="eliminar" data-index="${index}">Eliminar</button>
+              </div>
+            `;
+            carritoContainer.appendChild(div);
+          });
+        }
+
+        totalDisplay.textContent = `Total: $${total.toLocaleString()} MXN`;
+      }
+
+      carritoContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('eliminar')) {
+          const index = e.target.getAttribute('data-index');
+          carrito.splice(index, 1);
+          localStorage.setItem('carrito', JSON.stringify(carrito));
+          mostrarCarrito();
+        }
+      });
+
+      mostrarCarrito();
+    });
+  </script>
+</body>
+</html>
