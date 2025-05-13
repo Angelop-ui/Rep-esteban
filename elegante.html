@@ -1,43 +1,147 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zapatos Elegantes - Los BelicosMX</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Zapatos Elegantes - Los BelicosMX</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #0a0a0a;
+      color: white;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    main {
+      padding: 30px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.3rem;
+      color: #ffd700;
+      text-shadow: 0 0 12px #ffd700;
+      animation: slideDown 1s ease;
+    }
+
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+      animation: fadeInUp 1.2s ease;
+    }
+
+    .producto {
+      background: linear-gradient(145deg, #1a1a1a, #000);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .producto:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+    }
+
+    .producto img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .producto p {
+      font-size: 1.1rem;
+      margin: 5px 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #ffd700;
+      border: none;
+      border-radius: 5px;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e6c200;
+      box-shadow: 0 0 10px #ffd700;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #111;
+    }
+
+    footer button {
+      background-color: crimson;
+      color: white;
+      font-size: 1rem;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+    }
+
+    footer button:hover {
+      background-color: darkred;
+    }
+
+    /* Animaciones */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="tenis.html">Tenis</a></li>
-                <li><a href="elegante.html">Zapatos Elegantes</a></li>
-                <li><a href="accesorios.html">Accesorios</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <h1>Zapatos Elegantes de Lujo</h1>
-        <div class="productos">
-            <div class="producto">
-                <img src="louboutin_elegante.jpg" alt="Louboutin Elegante">
-                <p>Louboutin Classic Oxford</p>
-                <p>$30,000 MXN</p>
-                <button>Agregar al carrito</button>
-            </div>
-            <div class="producto">
-                <img src="louboutin_brogued.jpg" alt="Louboutin Brogued">
-                <p>Louboutin Brogued Leather Shoes</p>
-                <p>$35,000 MXN</p>
-                <button>Agregar al carrito</button>
-            </div>
-        </div>
-    </main>
+  <main>
+    <h1>Zapatos Elegantes</h1>
+    <div class="productos">
+      <div class="producto">
+        <img src="zapato_milan.jpg" alt="Zapato Milán">
+        <p>Zapato Milán - Piel Italiana</p>
+        <p>$3,500 MXN</p>
+        <button>Agregar al carrito</button>
+      </div>
+      <div class="producto">
+        <img src="zapato_cuero_negro.jpg" alt="Zapato Negro">
+        <p>Zapato Clásico Negro</p>
+        <p>$2,800 MXN</p>
+        <button>Agregar al carrito</button>
+      </div>
+      <div class="producto">
+        <img src="botin_elegante.jpg" alt="Botín Elegante">
+        <p>Botín de Vestir Premium</p>
+        <p>$4,200 MXN</p>
+        <button>Agregar al carrito</button>
+      </div>
+    </div>
+  </main>
 
-    <footer>
-        <button><a href="index.html">Regresar a la Página Principal</a></button>
-    </footer>
+  <footer>
+    <button><a href="index.html">Regresar a la Página Principal</a></button>
+  </footer>
+
 </body>
 </html>
