@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Carrito Bélico</title>
   <style>
     body {
@@ -116,36 +116,10 @@
 
   <div class="carrito-container">
     <h2>Carrito de Compras</h2>
-
-    <div class="producto" id="producto1">
-      <img src="camisa1.jpg" alt="Camisa Negra Bélica">
-      <div class="producto-info">
-        <p>Camisa Negra Bélica - $450</p>
-        <p>Precio: $450</p>
-      </div>
-      <button class="btn-borrar" onclick="eliminarProducto('producto1', 450)">Eliminar</button>
-    </div>
-
-    <div class="producto" id="producto2">
-      <img src="pantalon1.jpg" alt="Pantalón Cargo Táctico">
-      <div class="producto-info">
-        <p>Pantalón Cargo Táctico - $550</p>
-        <p>Precio: $550</p>
-      </div>
-      <button class="btn-borrar" onclick="eliminarProducto('producto2', 550)">Eliminar</button>
-    </div>
-
-    <div class="producto" id="producto3">
-      <img src="sudadera1.jpg" alt="Sudadera Bélica Negra">
-      <div class="producto-info">
-        <p>Sudadera Bélica Negra - $600</p>
-        <p>Precio: $600</p>
-      </div>
-      <button class="btn-borrar" onclick="eliminarProducto('producto3', 600)">Eliminar</button>
-    </div>
+    <div id="productos-container"></div>
 
     <div class="total">
-      Total: $<span id="total">1600</span>
+      Total: $<span id="total">0</span>
     </div>
 
     <button class="comprar-btn" onclick="irACheckout()">Comprar</button>
@@ -177,12 +151,39 @@
   </div>
 
   <script>
-    let total = 1600;
+    let total = 0;
 
-    function eliminarProducto(id, precio) {
-      document.getElementById(id).style.display = "none";
+    function cargarProductos() {
+      const productos = JSON.parse(localStorage.getItem("carrito")) || [];
+      const contenedor = document.getElementById("productos-container");
+
+      productos.forEach((producto, index) => {
+        const div = document.createElement("div");
+        div.className = "producto";
+        div.id = `producto${index}`;
+        div.innerHTML = `
+          <img src="${producto.imagen}" alt="${producto.nombre}">
+          <div class="producto-info">
+            <p>${producto.nombre} - $${producto.precio}</p>
+            <p>Precio: $${producto.precio}</p>
+          </div>
+          <button class="btn-borrar" onclick="eliminarProducto('producto${index}', ${producto.precio}, ${index})">Eliminar</button>
+        `;
+        contenedor.appendChild(div);
+        total += producto.precio;
+      });
+
+      document.getElementById('total').textContent = total;
+    }
+
+    function eliminarProducto(id, precio, index) {
+      document.getElementById(id).remove();
       total -= precio;
       document.getElementById('total').textContent = total;
+
+      const productos = JSON.parse(localStorage.getItem("carrito")) || [];
+      productos.splice(index, 1);
+      localStorage.setItem("carrito", JSON.stringify(productos));
     }
 
     function irACheckout() {
@@ -193,9 +194,9 @@
     function finalizarCompra() {
       const metodoPago = document.getElementById('metodo-pago').value;
       let codigoPago = '';
-      
+
       if (metodoPago === 'oxxo') {
-        codigoPago = 'Código OXXO: ' + generarCodigoPago();
+        codigoPago = generarCodigoPago();
         document.getElementById('codigoPago').textContent = 'Código de pago OXXO: ' + codigoPago;
       } else if (metodoPago === 'tarjeta') {
         let descuento = total * 0.2;
@@ -206,7 +207,11 @@
 
       document.getElementById('checkout').style.display = "none";
       document.getElementById('mensajeGracias').style.display = "block";
-      document.getElementById('mensajeFinal').textContent = metodoPago === 'oxxo' ? 'Pago realizado a través de OXXO. Código generado: ' + codigoPago : 'Pago realizado con tarjeta. Total con descuento: $' + total.toFixed(2);
+      document.getElementById('mensajeFinal').textContent = metodoPago === 'oxxo'
+        ? 'Pago realizado a través de OXXO. Código generado: ' + codigoPago
+        : 'Pago realizado con tarjeta. Total con descuento: $' + total.toFixed(2);
+
+      localStorage.removeItem("carrito");
     }
 
     function generarCodigoPago() {
@@ -216,6 +221,8 @@
     function regresarATienda() {
       window.location.href = 'index.html';
     }
+
+    window.onload = cargarProductos;
   </script>
 
 </body>
