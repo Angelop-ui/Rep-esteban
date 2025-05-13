@@ -100,7 +100,7 @@
     <h2>Carrito de Compras</h2>
     <div id="productos-container"></div>
     <div class="total">
-      Total: $<span id="total">0</span>
+      Total: $<span id="total">0.00</span>
     </div>
     <button class="comprar-btn" onclick="irACheckout()">Comprar</button>
   </div>
@@ -149,7 +149,7 @@
           <img src="${producto.imagen}" alt="${producto.nombre}">
           <div class="producto-info">
             <p>${producto.nombre}</p>
-            <p>Precio: $${producto.precio}</p>
+            <p>Precio: $${producto.precio.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</p>
           </div>
           <button class="btn-borrar" onclick="eliminarProducto('${index}', ${producto.precio})">Eliminar</button>
         `;
@@ -157,7 +157,7 @@
         total += producto.precio;
       });
 
-      document.getElementById('total').textContent = total;
+      document.getElementById('total').textContent = total.toLocaleString('es-MX', { minimumFractionDigits: 2 });
     }
 
     function eliminarProducto(index, precio) {
@@ -195,8 +195,8 @@
         }
 
         const descuento = total * 0.2;
-        total -= descuento;
-        mensaje = `Pago con tarjeta exitoso. Total con descuento: $${total.toFixed(2)}`;
+        const totalFinal = total - descuento;
+        mensaje = `Pago con tarjeta exitoso. Total con descuento: $${totalFinal.toLocaleString('es-MX', { minimumFractionDigits: 2 })}`;
       } else {
         alert("Selecciona un método de pago.");
         return;
