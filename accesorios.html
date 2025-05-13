@@ -3,107 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Accesorios - Los BelicosMX</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0b0b0b;
-      color: white;
-      position: relative;
-    }
-
-    section {
-      padding: 40px 20px;
-    }
-
-    h2 {
-      font-size: 2rem;
-      color: #ffd700;
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .productos {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 20px;
-      padding: 0 20px;
-    }
-
-    .producto {
-      background: white;
-      border: 1px solid #ccc;
-      padding: 15px;
-      text-align: center;
-      border-radius: 8px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s ease-in-out forwards;
-    }
-
-    .producto img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      margin-bottom: 10px;
-    }
-
-    .producto p {
-      color: #111;
-      font-weight: bold;
-    }
-
-    button {
-      background-color: #ffd700;
-      color: black;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border-radius: 8px;
-      cursor: pointer;
-      display: block;
-      margin: 20px auto;
-    }
-
-    button:hover {
-      background-color: #e6c200;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+  <title>Accesorios Bélicos - Los BelicosMX</title>
+  <style>/* Igual que en elegante.html */</style>
 </head>
 <body>
-
-  <section id="productos-accesorios">
-    <h2>Accesorios Bélicos</h2>
-    <div class="productos">
-      <div class="producto">
-        <img src="cadena1.jpg" alt="Cadena 1">
-        <p>Cadena Bélica - $300</p>
-      </div>
-      <div class="producto">
-        <img src="gafas1.jpg" alt="Gafas 1">
-        <p>Gafas Oscuras - $180</p>
-      </div>
-      <div class="producto">
-        <img src="pulsera1.jpg" alt="Pulsera 1">
-        <p>Pulsera Táctica - $120</p>
-      </div>
+  <h1>Accesorios Bélicos</h1>
+  <div class="productos">
+    <div class="producto">
+      <img src="accesorio1.jpg" alt="Cadena de oro">
+      <p>Cadena de Oro 24k - $5,000</p>
+      <button onclick="agregarAlCarrito('Cadena de Oro 24k', 5000, 'accesorio1.jpg')">Agregar al carrito</button>
     </div>
-  </section>
+    <div class="producto">
+      <img src="accesorio2.jpg" alt="Reloj de lujo">
+      <p>Reloj Rolex - $12,000</p>
+      <button onclick="agregarAlCarrito('Reloj Rolex', 12000, 'accesorio2.jpg')">Agregar al carrito</button>
+    </div>
+  </div>
 
-  <button onclick="window.location.href='index.html'">Regresar a la tienda</button>
+  <div class="volver">
+    <a href="index.html">← Regresar a la tienda</a>
+  </div>
 
+  <script>
+    function agregarAlCarrito(nombre, precio, imagen) {
+      const producto = { nombre, precio, imagen };
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      carrito.push(producto);
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      alert('Producto agregado al carrito');
+    }
+  </script>
 </body>
 </html>
