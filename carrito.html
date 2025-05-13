@@ -6,78 +6,194 @@
   <title>Carrito Bélico</title>
   <style>
     body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
       background-color: #0b0b0b;
       color: white;
-      font-family: 'Segoe UI', sans-serif;
+    }
+    .carrito-container {
       padding: 20px;
     }
-    h1 {
-      text-align: center;
-      color: #ffd700;
-    }
-    .carrito-producto {
+    .producto {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      background: #1a1a1a;
-      margin-bottom: 15px;
-      padding: 10px;
+      margin-bottom: 20px;
+      background-color: #1c1c1c;
+      padding: 15px;
       border-radius: 8px;
+      border: 1px solid #ccc;
     }
-    .carrito-producto img {
+    .producto img {
       width: 100px;
-      height: 100px;
+      height: auto;
       object-fit: cover;
       margin-right: 15px;
     }
-    .carrito-producto p {
-      margin: 5px 0;
+    .producto-info {
+      flex-grow: 1;
+    }
+    .producto-info p {
+      margin: 0;
+    }
+    .btn-borrar {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .btn-borrar:hover {
+      background-color: darkred;
     }
     .total {
       font-size: 1.5rem;
-      text-align: right;
       margin-top: 20px;
       color: #ffd700;
     }
-    button {
-      margin-top: 20px;
+    .comprar-btn {
+      padding: 15px 30px;
       background-color: #ffd700;
-      color: black;
       border: none;
-      padding: 10px 20px;
-      font-weight: bold;
-      cursor: pointer;
       border-radius: 8px;
+      font-size: 1.2rem;
+      color: black;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .comprar-btn:hover {
+      background-color: #e6c200;
+    }
+    .checkout-container {
+      margin-top: 30px;
+      background-color: #1c1c1c;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .checkout-container input {
+      padding: 10px;
+      width: 100%;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      background-color: #333;
+      color: white;
+    }
+    .checkout-container button {
+      padding: 15px 30px;
+      background-color: #ffd700;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      color: black;
+      cursor: pointer;
+    }
+    .checkout-container button:hover {
+      background-color: #e6c200;
+    }
+    .codigo-pago {
+      font-size: 1.2rem;
+      margin-top: 10px;
+      color: #fff;
     }
   </style>
 </head>
 <body>
-  <h1>Carrito Bélico</h1>
-  <div id="carrito-contenido"></div>
-  <div class="total" id="total">Total: $0</div>
-  <button onclick="window.location.href='index.html'">Regresar a la tienda</button>
+
+  <div class="carrito-container">
+    <h2>Carrito de Compras</h2>
+
+    <div class="producto" id="producto1">
+      <img src="camisa1.jpg" alt="Camisa Negra Bélica">
+      <div class="producto-info">
+        <p>Camisa Negra Bélica - $450</p>
+        <p>Precio: $450</p>
+      </div>
+      <button class="btn-borrar" onclick="eliminarProducto('producto1', 450)">Eliminar</button>
+    </div>
+
+    <div class="producto" id="producto2">
+      <img src="pantalon1.jpg" alt="Pantalón Cargo Táctico">
+      <div class="producto-info">
+        <p>Pantalón Cargo Táctico - $550</p>
+        <p>Precio: $550</p>
+      </div>
+      <button class="btn-borrar" onclick="eliminarProducto('producto2', 550)">Eliminar</button>
+    </div>
+
+    <div class="producto" id="producto3">
+      <img src="sudadera1.jpg" alt="Sudadera Bélica Negra">
+      <div class="producto-info">
+        <p>Sudadera Bélica Negra - $600</p>
+        <p>Precio: $600</p>
+      </div>
+      <button class="btn-borrar" onclick="eliminarProducto('producto3', 600)">Eliminar</button>
+    </div>
+
+    <div class="total">
+      Total: $<span id="total">1600</span>
+    </div>
+
+    <button class="comprar-btn" onclick="irACheckout()">Comprar</button>
+  </div>
+
+  <div class="checkout-container" id="checkout" style="display:none;">
+    <h2>Proceso de Compra</h2>
+    <h3>Ingrese sus datos de pago</h3>
+    <input type="text" id="nombre" placeholder="Nombre completo" required>
+    <input type="email" id="email" placeholder="Correo electrónico" required>
+    <input type="text" id="direccion" placeholder="Dirección de envío" required>
+
+    <h3>Elija su método de pago:</h3>
+    <label for="metodo-pago">Seleccione:</label>
+    <select id="metodo-pago">
+      <option value="tarjeta">Pago con tarjeta</option>
+      <option value="oxxo">Pago en Oxxo</option>
+    </select>
+
+    <button onclick="finalizarCompra()">Aceptar</button>
+
+    <div id="codigoPago" class="codigo-pago"></div>
+  </div>
 
   <script>
-    const carritoContenido = document.getElementById('carrito-contenido');
-    const totalElemento = document.getElementById('total');
+    let total = 1600; // Total inicial
 
-    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    // Eliminar producto
+    function eliminarProducto(id, precio) {
+      document.getElementById(id).style.display = "none";
+      total -= precio;
+      document.getElementById('total').textContent = total;
+    }
 
-    let total = 0;
-    carrito.forEach(producto => {
-      const div = document.createElement('div');
-      div.classList.add('carrito-producto');
-      div.innerHTML = `
-        <img src="${producto.imagen}" alt="${producto.nombre}">
-        <div>
-          <p><strong>${producto.nombre}</strong></p>
-          <p>$${producto.precio}</p>
-        </div>
-      `;
-      carritoContenido.appendChild(div);
-      total += producto.precio;
-    });
+    // Ir al checkout
+    function irACheckout() {
+      document.querySelector('.carrito-container').style.display = "none";
+      document.getElementById('checkout').style.display = "block";
+    }
 
-    totalElemento.textContent = `Total: $${total}`;
+    // Finalizar compra y generar código de pago
+    function finalizarCompra() {
+      const metodoPago = document.getElementById('metodo-pago').value;
+      let codigoPago = '';
+      
+      if (metodoPago === 'oxxo') {
+        codigoPago = 'Código OXXO: ' + generarCodigoPago();
+        document.getElementById('codigoPago').textContent = 'Código de pago OXXO: ' + codigoPago;
+      } else if (metodoPago === 'tarjeta') {
+        let descuento = total * 0.2; // 20% de descuento
+        total -= descuento;
+        codigoPago = 'Pago con tarjeta aplicado, total con descuento: $' + total.toFixed(2);
+        document.getElementById('codigoPago').textContent = codigoPago;
+      }
+    }
+
+    // Función para generar código de pago
+    function generarCodigoPago() {
+      return Math.random().toString(36).substr(2, 9).toUpperCase();
+    }
   </script>
+
 </body>
 </html>
