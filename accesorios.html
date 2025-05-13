@@ -4,16 +4,92 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Accesorios Bélicos - Los BelicosMX</title>
-  <style>/* Igual que en elegante.html */</style>
+  <style>
+    /* Estilos generales */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0b0b0b;
+      color: white;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 2.5rem;
+      color: #ffd700;
+    }
+
+    .productos {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .producto {
+      background-color: #1c1c1c;
+      padding: 15px;
+      border-radius: 10px;
+      width: 200px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .producto img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+      object-fit: cover;
+    }
+
+    .producto p {
+      margin: 10px 0;
+      font-size: 1.2rem;
+    }
+
+    .producto button {
+      background-color: #ffd700;
+      color: black;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .producto button:hover {
+      background-color: #e6c200;
+    }
+
+    .volver {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .volver a {
+      text-decoration: none;
+      color: #ffd700;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+    }
+
+    .volver a:hover {
+      color: #e6c200;
+    }
+  </style>
 </head>
 <body>
   <h1>Accesorios Bélicos</h1>
+
   <div class="productos">
     <div class="producto">
       <img src="accesorio1.jpg" alt="Cadena de oro">
       <p>Cadena de Oro 24k - $5,000</p>
       <button onclick="agregarAlCarrito('Cadena de Oro 24k', 5000, 'accesorio1.jpg')">Agregar al carrito</button>
     </div>
+
     <div class="producto">
       <img src="accesorio2.jpg" alt="Reloj de lujo">
       <p>Reloj Rolex - $12,000</p>
