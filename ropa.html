@@ -1,21 +1,91 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Ropa - Los BelicosMX</title>
-  <link rel="stylesheet" href="menu.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    header {
+      background-color: black;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      font-size: 1.8rem;
+    }
+
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 30px;
+    }
+
+    .producto {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .producto img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .producto p {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    .boton-regresar {
+      display: block;
+      margin: 30px auto;
+      padding: 12px 25px;
+      font-size: 1rem;
+      background-color: red;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      text-align: center;
+      width: fit-content;
+    }
+
+    .boton-regresar:hover {
+      background-color: darkred;
+    }
+  </style>
 </head>
 <body>
-  <h2>Sudaderas y Playeras</h2>
+
+  <header>Ropa - Los BelicosMX</header>
+
   <div class="productos">
     <div class="producto">
-      <img src="sudadera1.jpg" alt="Sudadera">
-      <p>Sudadera Bélica Negra - $600</p>
+      <img src="sudadera1.jpg" alt="Sudadera Bélica">
+      <p>Sudadera Bélica - $600</p>
     </div>
     <div class="producto">
-      <img src="camisa1.jpg" alt="Camisa">
-      <p>Camisa Negra Bélica - $450</p>
+      <img src="camisa1.jpg" alt="Camisa Negra">
+      <p>Camisa Negra - $450</p>
+    </div>
+    <div class="producto">
+      <img src="playera1.jpg" alt="Playera">
+      <p>Playera Bélica - $350</p>
     </div>
   </div>
+
+  <a class="boton-regresar" href="index.html">Regresar</a>
+
 </body>
 </html>
