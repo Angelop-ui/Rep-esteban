@@ -6,109 +6,62 @@
   <title>Carrito Bélico</title>
   <style>
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0b0b0b;
-      color: white;
-    }
-    .carrito-container {
+      font-family: Arial, sans-serif;
       padding: 20px;
+      background-color: #f8f8f8;
+    }
+    .carrito-container, .checkout-container, #mensajeGracias {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     .producto {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
-      background-color: #1c1c1c;
-      padding: 15px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
+      margin-bottom: 15px;
     }
     .producto img {
-      width: 100px;
-      height: auto;
+      width: 80px;
+      height: 80px;
       object-fit: cover;
-      margin-right: 15px;
+      margin-right: 10px;
     }
     .producto-info {
       flex-grow: 1;
     }
-    .producto-info p {
-      margin: 0;
-    }
     .btn-borrar {
-      background-color: red;
+      background: #ff4d4d;
+      border: none;
+      color: white;
+      padding: 6px 10px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .comprar-btn, .regresar-btn {
+      margin-top: 20px;
+      padding: 10px;
+      background: #4CAF50;
       color: white;
       border: none;
-      padding: 8px 15px;
+      border-radius: 4px;
       cursor: pointer;
-      border-radius: 5px;
-    }
-    .btn-borrar:hover {
-      background-color: darkred;
     }
     .total {
-      font-size: 1.5rem;
-      margin-top: 20px;
-      color: #ffd700;
-    }
-    .comprar-btn {
-      padding: 15px 30px;
-      background-color: #ffd700;
-      border: none;
-      border-radius: 8px;
-      font-size: 1.2rem;
-      color: black;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-    .comprar-btn:hover {
-      background-color: #e6c200;
-    }
-    .checkout-container {
-      margin-top: 30px;
-      background-color: #1c1c1c;
-      padding: 20px;
-      border-radius: 8px;
-    }
-    .checkout-container input, .checkout-container select {
-      padding: 10px;
-      width: 100%;
-      margin-bottom: 15px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      background-color: #333;
-      color: white;
-    }
-    .checkout-container button {
-      padding: 15px 30px;
-      background-color: #ffd700;
-      border: none;
-      border-radius: 8px;
-      font-size: 1.2rem;
-      color: black;
-      cursor: pointer;
-    }
-    .checkout-container button:hover {
-      background-color: #e6c200;
-    }
-    .codigo-pago {
-      font-size: 1.2rem;
+      font-size: 20px;
+      font-weight: bold;
       margin-top: 10px;
-      color: #fff;
     }
-    .regresar-btn {
-      padding: 15px 30px;
-      background-color: #28a745;
-      border: none;
-      border-radius: 8px;
-      font-size: 1.2rem;
-      color: white;
-      cursor: pointer;
-      margin-top: 20px;
+    .form-group {
+      margin-bottom: 10px;
     }
-    .regresar-btn:hover {
-      background-color: #218838;
+    input, select {
+      padding: 8px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
   </style>
 </head>
@@ -117,34 +70,39 @@
   <div class="carrito-container">
     <h2>Carrito de Compras</h2>
     <div id="productos-container"></div>
-    <div class="total">
-      Total: $<span id="total">0</span>
-    </div>
+    <div class="total">Total: $<span id="total">0</span></div>
     <button class="comprar-btn" onclick="irACheckout()">Comprar</button>
   </div>
 
   <div class="checkout-container" id="checkout" style="display:none;">
-    <h2>Proceso de Compra</h2>
-    <h3>Ingrese sus datos</h3>
-    <input type="text" id="nombre" placeholder="Nombre completo" required>
-    <input type="email" id="email" placeholder="Correo electrónico" required>
-    <input type="text" id="direccion" placeholder="Dirección de envío" required>
-
-    <h3>Método de pago</h3>
-    <select id="metodo-pago" onchange="mostrarCamposTarjeta()">
-      <option value="tarjeta">Pago con tarjeta</option>
-      <option value="oxxo">Pago en Oxxo</option>
+    <h2>Finalizar Compra</h2>
+    <label for="metodo-pago">Método de Pago:</label>
+    <select id="metodo-pago" onchange="mostrarFormularioPago()">
+      <option value="oxxo">OXXO</option>
+      <option value="tarjeta">Tarjeta</option>
     </select>
 
-    <div id="datos-tarjeta" style="display:none;">
-      <input type="text" id="num-tarjeta" placeholder="Número de tarjeta (16 dígitos)" maxlength="16">
-      <input type="text" id="nombre-tarjeta" placeholder="Nombre del titular">
-      <input type="text" id="expira" placeholder="Fecha de expiración (MM/AA)" maxlength="5">
-      <input type="text" id="cvv" placeholder="CVV (3 dígitos)" maxlength="3">
+    <div id="formulario-tarjeta" style="display:none; margin-top: 15px;">
+      <div class="form-group">
+        <label>Número de Tarjeta:</label>
+        <input type="text" id="numero-tarjeta" maxlength="16">
+      </div>
+      <div class="form-group">
+        <label>Nombre del Titular:</label>
+        <input type="text" id="nombre-tarjeta">
+      </div>
+      <div class="form-group">
+        <label>Fecha de Expiración (MM/AA):</label>
+        <input type="text" id="expiracion" placeholder="MM/AA" maxlength="5">
+      </div>
+      <div class="form-group">
+        <label>CVV:</label>
+        <input type="text" id="cvv" maxlength="3">
+      </div>
     </div>
 
-    <button onclick="finalizarCompra()">Aceptar</button>
-    <div id="codigoPago" class="codigo-pago"></div>
+    <button class="comprar-btn" onclick="finalizarCompra()">Pagar</button>
+    <p id="codigoPago" style="margin-top: 10px; font-weight: bold;"></p>
   </div>
 
   <div id="mensajeGracias" style="display:none;">
@@ -167,7 +125,7 @@
         div.innerHTML = `
           <img src="${producto.imagen}" alt="${producto.nombre}">
           <div class="producto-info">
-            <p>${producto.nombre} - $${producto.precio}</p>
+            <p>${producto.nombre}</p>
             <p>Precio: $${producto.precio}</p>
           </div>
           <button class="btn-borrar" onclick="eliminarProducto('producto${index}', ${producto.precio}, ${index})">Eliminar</button>
@@ -183,6 +141,7 @@
       document.getElementById(id).remove();
       total -= precio;
       document.getElementById('total').textContent = total;
+
       const productos = JSON.parse(localStorage.getItem("carrito")) || [];
       productos.splice(index, 1);
       localStorage.setItem("carrito", JSON.stringify(productos));
@@ -193,9 +152,9 @@
       document.getElementById('checkout').style.display = "block";
     }
 
-    function mostrarCamposTarjeta() {
+    function mostrarFormularioPago() {
       const metodo = document.getElementById('metodo-pago').value;
-      document.getElementById('datos-tarjeta').style.display = metodo === 'tarjeta' ? 'block' : 'none';
+      document.getElementById('formulario-tarjeta').style.display = metodo === 'tarjeta' ? 'block' : 'none';
     }
 
     function finalizarCompra() {
@@ -205,14 +164,27 @@
       if (metodoPago === 'oxxo') {
         codigoPago = generarCodigoPago();
         document.getElementById('codigoPago').textContent = 'Código de pago OXXO: ' + codigoPago;
+        mostrarMensajeFinal('Pago realizado a través de OXXO. Código generado: ' + codigoPago);
       } else if (metodoPago === 'tarjeta') {
-        const numTarjeta = document.getElementById('num-tarjeta').value;
+        const numTarjeta = document.getElementById('numero-tarjeta').value;
         const nombreTarjeta = document.getElementById('nombre-tarjeta').value;
-        const expira = document.getElementById('expira').value;
+        const expira = document.getElementById('expiracion').value;
         const cvv = document.getElementById('cvv').value;
 
-        if (numTarjeta.length !== 16 || cvv.length !== 3 || expira.length !== 5 || nombreTarjeta.trim() === '') {
-          alert('Por favor completa correctamente los datos de la tarjeta.');
+        if (!/^\d{16}$/.test(numTarjeta)) {
+          alert('El número de tarjeta debe tener exactamente 16 dígitos.');
+          return;
+        }
+        if (nombreTarjeta.trim() === '') {
+          alert('El nombre del titular no puede estar vacío.');
+          return;
+        }
+        if (!/^\d{2}\/\d{2}$/.test(expira)) {
+          alert('La fecha de expiración debe tener el formato MM/AA.');
+          return;
+        }
+        if (!/^\d{3}$/.test(cvv)) {
+          alert('El CVV debe tener exactamente 3 dígitos.');
           return;
         }
 
@@ -220,19 +192,20 @@
         total -= descuento;
         codigoPago = 'Pago con tarjeta aplicado, total con descuento: $' + total.toFixed(2);
         document.getElementById('codigoPago').textContent = codigoPago;
+        mostrarMensajeFinal('Pago realizado con tarjeta. Total con descuento: $' + total.toFixed(2));
       }
-
-      document.getElementById('checkout').style.display = "none";
-      document.getElementById('mensajeGracias').style.display = "block";
-      document.getElementById('mensajeFinal').textContent = metodoPago === 'oxxo'
-        ? 'Pago realizado a través de OXXO. Código generado: ' + codigoPago
-        : 'Pago realizado con tarjeta. Total con descuento: $' + total.toFixed(2);
 
       localStorage.removeItem("carrito");
     }
 
     function generarCodigoPago() {
       return Math.random().toString(36).substr(2, 9).toUpperCase();
+    }
+
+    function mostrarMensajeFinal(mensaje) {
+      document.getElementById('checkout').style.display = "none";
+      document.getElementById('mensajeGracias').style.display = "block";
+      document.getElementById('mensajeFinal').textContent = mensaje;
     }
 
     function regresarATienda() {
