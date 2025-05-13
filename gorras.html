@@ -2,108 +2,134 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gorras - Los BelicosMX</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: 'Arial', sans-serif;
-      background-color: #111;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0b0b0b;
       color: white;
-      animation: fadeIn 1s ease-in;
+      position: relative;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    section {
+      padding: 40px 20px;
     }
 
-    nav {
-      background-color: #000;
-      padding: 15px;
+    h2 {
+      font-size: 2rem;
+      color: #ffd700;
       text-align: center;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1.1rem;
-    }
-
-    h1 {
-      text-align: center;
-      margin: 30px 0;
-      font-size: 2.5rem;
-      color: #ff0000;
+      margin-bottom: 25px;
     }
 
     .productos {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 20px;
-      padding: 20px;
+      padding: 0 20px;
     }
 
     .producto {
-      background: #222;
-      border-radius: 10px;
-      overflow: hidden;
-      transition: transform 0.3s ease;
-    }
-
-    .producto:hover {
-      transform: scale(1.05);
+      background: white;
+      border: 1px solid #ccc;
+      padding: 15px;
+      text-align: center;
+      border-radius: 8px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease-in-out forwards;
     }
 
     .producto img {
       width: 100%;
-      height: 180px;
+      height: 200px;
       object-fit: cover;
+      margin-bottom: 10px;
     }
 
     .producto p {
-      padding: 10px;
-      text-align: center;
+      color: #111;
+      font-weight: bold;
     }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9rem;
-      color: #ccc;
+    button {
+      background-color: #ffd700;
+      color: black;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto;
+    }
+
+    button:hover {
+      background-color: #e6c200;
+    }
+
+    #carrito {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #ffd700;
+      color: black;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 12px #ffd700;
+      cursor: pointer;
+      transition: background 0.3s;
+      z-index: 1000;
+    }
+
+    #carrito:hover {
+      background-color: #e6c200;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 <body>
 
-  <nav>
-    <a href="index.html">← Volver a la tienda</a>
-  </nav>
-
-  <h1>Gorras Exclusivas</h1>
-
-  <div class="productos">
-    <div class="producto">
-      <img src="gorra1.jpg" alt="Gorra 1">
-      <p>Marca: [Aquí va la marca]</p>
+  <section id="productos-gorras">
+    <h2>Gorras Bélicas</h2>
+    <div class="productos">
+      <div class="producto">
+        <img src="gorra1.jpg" alt="Gorra 1">
+        <p>Gorra Militar - $350</p>
+      </div>
+      <div class="producto">
+        <img src="gorra2.jpg" alt="Gorra 2">
+        <p>Gorra Deportiva - $400</p>
+      </div>
+      <div class="producto">
+        <img src="gorra3.jpg" alt="Gorra 3">
+        <p>Gorra de Camuflaje - $380</p>
+      </div>
     </div>
-    <div class="producto">
-      <img src="gorra2.jpg" alt="Gorra 2">
-      <p>Marca: [Aquí va la marca]</p>
-    </div>
-    <!-- Agrega 5 más tú -->
-  </div>
+  </section>
 
-  <footer>
-    © 2025 Los BelicosMX
-  </footer>
+  <button onclick="window.location.href='index.html'">Regresar a la tienda</button>
+
+  <button id="carrito" onclick="window.location.href='carrito.html'">🛒</button>
 
 </body>
 </html>
-
