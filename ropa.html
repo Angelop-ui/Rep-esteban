@@ -3,107 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ropa - Los BelicosMX</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0b0b0b;
-      color: white;
-      position: relative;
-    }
-
-    section {
-      padding: 40px 20px;
-    }
-
-    h2 {
-      font-size: 2rem;
-      color: #ffd700;
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .productos {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 20px;
-      padding: 0 20px;
-    }
-
-    .producto {
-      background: white;
-      border: 1px solid #ccc;
-      padding: 15px;
-      text-align: center;
-      border-radius: 8px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s ease-in-out forwards;
-    }
-
-    .producto img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      margin-bottom: 10px;
-    }
-
-    .producto p {
-      color: #111;
-      font-weight: bold;
-    }
-
-    button {
-      background-color: #ffd700;
-      color: black;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border-radius: 8px;
-      cursor: pointer;
-      display: block;
-      margin: 20px auto;
-    }
-
-    button:hover {
-      background-color: #e6c200;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+  <title>Ropa Bélica - Los BelicosMX</title>
+  <style>/* Igual que en elegante.html */</style>
 </head>
 <body>
-
-  <section id="productos-ropa">
-    <h2>Ropa Bélica</h2>
-    <div class="productos">
-      <div class="producto">
-        <img src="camisa1.jpg" alt="Camisa 1">
-        <p>Camisa Bélica - $450</p>
-      </div>
-      <div class="producto">
-        <img src="camisa2.jpg" alt="Camisa 2">
-        <p>Camisa Camuflaje - $500</p>
-      </div>
-      <div class="producto">
-        <img src="camisa3.jpg" alt="Camisa 3">
-        <p>Camisa Táctica - $550</p>
-      </div>
+  <h1>Ropa Bélica</h1>
+  <div class="productos">
+    <div class="producto">
+      <img src="ropa1.jpg" alt="Camisa Versace">
+      <p>Camisa Versace - $1,800</p>
+      <button onclick="agregarAlCarrito('Camisa Versace', 1800, 'ropa1.jpg')">Agregar al carrito</button>
     </div>
-  </section>
+    <div class="producto">
+      <img src="ropa2.jpg" alt="Pantalón skinny">
+      <p>Pantalón Skinny - $900</p>
+      <button onclick="agregarAlCarrito('Pantalón Skinny', 900, 'ropa2.jpg')">Agregar al carrito</button>
+    </div>
+  </div>
 
-  <button onclick="window.location.href='index.html'">Regresar a la tienda</button>
+  <div class="volver">
+    <a href="index.html">← Regresar a la tienda</a>
+  </div>
 
+  <script>
+    function agregarAlCarrito(nombre, precio, imagen) {
+      const producto = { nombre, precio, imagen };
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      carrito.push(producto);
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      alert('Producto agregado al carrito');
+    }
+  </script>
 </body>
 </html>
