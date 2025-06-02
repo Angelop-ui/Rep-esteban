@@ -1,67 +1,75 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Los BelicosMX - Tienda de Ropa</title>
-  <link rel="stylesheet" href="estilos.css">
-  <script src="carrito.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Los BelicosMX</title>
+  <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
   <header>
     <h1>Los BelicosMX</h1>
     <nav>
       <ul>
-        <li><a href="index.html">Inicio</a></li>
         <li><a href="ropa.html">Ropa</a></li>
         <li><a href="accesorios.html">Accesorios</a></li>
-        <li><a href="gorras.html">Gorras</a></li>
         <li><a href="tenis.html">Tenis</a></li>
         <li><a href="elegante.html">Elegante</a></li>
+        <li><a href="gorras.html">Gorras</a></li>
         <li><a href="carrito.html">Carrito</a></li>
       </ul>
     </nav>
   </header>
 
-  <main>
-    <section id="bienvenida">
-      <h2>Bienvenido a Los BelicosMX</h2>
-      <p>Explora nuestra tienda online con ropa y accesorios alucinantes.</p>
-    </section>
+  <section id="inicio">
+    <h2>Bienvenido a Los BelicosMX</h2>
+    <p>¡Ropa con estilo bélico a los mejores precios!</p>
+  </section>
 
-    <section id="tendencia">
-      <h2>Tendencia</h2>
-      <div class="productos">
-        <div class="producto">
-          <img src="11.jpg" alt="Camisa">
-          <p>Camisa Anti Social Club - $350</p>
-          <button onclick="agregarAlCarrito('Camisa Anti Social Club', 350)">Agregar al carrito</button>
-        </div>
-        <div class="producto">
-          <img src="12.jpeg" alt="Pantalón">
-          <p>Pantalón American Eagle - $550</p>
-          <button onclick="agregarAlCarrito('Pantalón American Eagle', 550)">Agregar al carrito</button>
-        </div>
-        <div class="producto">
-          <img src="13.jpeg" alt="Sudadera">
-          <p>Sudadera CrimeLife - $1700</p>
-          <button onclick="agregarAlCarrito('Sudadera CrimenLife', 1700)">Agregar al carrito</button>
-        </div>
-        <div class="producto">
-          <img src="17.jpg" alt="Camisa Crime Life">
-          <p>Camisa Crime Life - $850</p>
-          <button onclick="agregarAlCarrito('Camisa Crime Life', 850)">Agregar al carrito</button>
-        </div>
-        <div class="producto">
-          <img src="18.jpg" alt="Sudadera Palm Angels">
-          <p>Sudadera Palm Angels - $4200</p>
-          <button onclick="agregarAlCarrito('Sudadera Palm Angels', 4200)">Agregar al carrito</button>
-        </div>
+  <section id="tendencia">
+    <h2>Tendencia</h2>
+    <div class="productos">
+      <div class="producto">
+        <img src="11.jpg" alt="Camisa">
+        <p>Camisa Anti Social Club - $350</p>
+        <button onclick="agregarAlCarrito('Camisa Anti Social Club', 350)">Agregar al carrito</button>
       </div>
-    </section>
-  </main>
+      <div class="producto">
+        <img src="12.jpeg" alt="Pantalón">
+        <p>Pantalón American Eagle- $550</p>
+        <button onclick="agregarAlCarrito('Pantalón American Eagle', 550)">Agregar al carrito</button>
+      </div>
+      <div class="producto">
+        <img src="13.jpeg" alt="Sudadera">
+        <p>Sudadera CrimeLife - $1700</p>
+        <button onclick="agregarAlCarrito('Sudadera CrimenLife', 1700)">Agregar al carrito</button>
+      </div>
+
+      <!-- NUEVOS PRODUCTOS AÑADIDOS -->
+      <div class="producto">
+        <img src="17.jpeg" alt="Camisa CrimeLife">
+        <p>Camisa CrimeLife - $850</p>
+        <button onclick="agregarAlCarrito('Camisa CrimeLife', 850)">Agregar al carrito</button>
+      </div>
+      <div class="producto">
+        <img src="18.jpeg" alt="Sudadera Palm Angels">
+        <p>Sudadera Palm Angels - $3200</p>
+        <button onclick="agregarAlCarrito('Sudadera Palm Angels', 3200)">Agregar al carrito</button>
+      </div>
+    </div>
+  </section>
 
   <footer>
-    <p>&copy; 2025 Los BelicosMX - Todos los derechos reservados.</p>
+    <p>&copy; 2025 Los BelicosMX. Todos los derechos reservados.</p>
   </footer>
+
+  <script>
+    function agregarAlCarrito(nombre, precio) {
+      const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      carrito.push({ nombre, precio });
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      alert(nombre + ' agregado al carrito.');
+    }
+  </script>
 </body>
 </html>
