@@ -1,75 +1,337 @@
+Dijiste:
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Los BelicosMX</title>
-  <link rel="stylesheet" href="estilos.css" />
+  <title>Los BelicosMX - Tienda Oficial</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0b0b0b;
+      color: white;
+      position: relative;
+    }
+
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: black;
+      color: #ffd700;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    #welcome-screen {
+      text-align: center;
+      padding: 100px 20px;
+      background-image: url('belicos_fondo.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      animation: fadeIn 1s ease;
+    }
+
+    #welcome-screen h1 {
+      font-size: 3rem;
+      color: #ffd700;
+      text-shadow: 0 0 12px #ffd700;
+      margin-bottom: 30px;
+    }
+
+    #welcome-screen button {
+      padding: 15px 30px;
+      background-color: #ffd700;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: black;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ffd700;
+      animation: bounce 1.2s infinite;
+      transition: background 0.3s;
+    }
+
+    #welcome-screen button:hover {
+      background-color: #e6c200;
+    }
+
+    .oculto {
+      display: none;
+    }
+
+    nav {
+      background-color: #111;
+      padding: 10px 0;
+    }
+
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: auto;
+      padding: 0 20px;
+    }
+
+    .nav-scroll {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .nav-scroll li {
+      margin: 0 15px;
+    }
+
+    .nav-scroll a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    section {
+      padding: 40px 20px;
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: #ffd700;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 0 20px;
+    }
+
+    .producto {
+      background: white;
+      border: 1px solid #ccc;
+      padding: 15px;
+      text-align: center;
+      border-radius: 8px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease-in-out forwards;
+    }
+
+    .producto:nth-child(1) { animation-delay: 0.2s; }
+    .producto:nth-child(2) { animation-delay: 0.4s; }
+    .producto:nth-child(3) { animation-delay: 0.6s; }
+
+    .producto img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .producto p {
+      color: #111;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .producto button {
+      padding: 8px 16px;
+      background-color: #ffd700;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .producto button:hover {
+      background-color: #e6c200;
+    }
+
+    footer {
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    #carrito {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #ffd700;
+      color: black;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 1.5rem;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 12px #ffd700;
+      cursor: pointer;
+      transition: background 0.3s;
+      z-index: 1000;
+    }
+
+    #carrito:hover {
+      background-color: #e6c200;
+    }
+
+    @media (max-width: 768px) {
+      #welcome-screen h1 {
+        font-size: 2.2rem;
+      }
+
+      #welcome-screen button {
+        font-size: 1rem;
+        padding: 12px 24px;
+      }
+
+      .nav-wrapper {
+        padding: 0 10px;
+      }
+
+      .nav-scroll li {
+        margin: 8px 10px;
+      }
+
+      section {
+        padding: 20px 10px;
+      }
+
+      .producto {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Los BelicosMX</h1>
+
+  <div id="loader">Cargando tienda...</div>
+
+  <div id="welcome-screen">
+    <h1>Bienvenido a Los BelicosMX</h1>
+    <button onclick="accederTienda()">ACCEDER A LA TIENDA</button>
+  </div>
+
+  <div id="main-content" class="oculto">
     <nav>
-      <ul>
-        <li><a href="ropa.html">Ropa</a></li>
-        <li><a href="accesorios.html">Accesorios</a></li>
-        <li><a href="tenis.html">Tenis</a></li>
-        <li><a href="elegante.html">Elegante</a></li>
-        <li><a href="gorras.html">Gorras</a></li>
-        <li><a href="carrito.html">Carrito</a></li>
-      </ul>
+      <div class="nav-wrapper">
+        <ul class="nav-scroll">
+          <li><a href="ropa.html">Ropa</a></li>
+          <li><a href="gorras.html">Gorras</a></li>
+          <li><a href="accesorios.html">Accesorios</a></li>
+          <li><a href="tenis.html">Tenis</a></li>
+          <li><a href="elegante.html">Elegante</a></li>
+        </ul>
+      </div>
     </nav>
-  </header>
 
-  <section id="inicio">
-    <h2>Bienvenido a Los BelicosMX</h2>
-    <p>¡Ropa con estilo bélico a los mejores precios!</p>
-  </section>
+    <section id="tendencia">
+      <h2>Tendencia</h2>
+      <div class="productos">
+        <div class="producto">
+          <img src="11.jpg" alt="Camisa">
+          <p>Camisa Anti Social Club - $350</p>
+          <button onclick="agregarAlCarrito('Camisa Anti Social Club', 350)">Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <img src="12.jpeg" alt="Pantalón">
+          <p>Pantalón American Eagle- $550</p>
+          <button onclick="agregarAlCarrito('Pantalón American Eagle', 550)">Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <img src="13.jpeg" alt="Sudadera">
+          <p>Sudadera CrimeLife - $1700</p>
+          <button onclick="agregarAlCarrito('Sudadera CrimenLife', 1700)">Agregar al carrito</button>
+        </div>
+      </div>
+    </section>
 
-  <section id="tendencia">
-    <h2>Tendencia</h2>
-    <div class="productos">
-      <div class="producto">
-        <img src="11.jpg" alt="Camisa">
-        <p>Camisa Anti Social Club - $350</p>
-        <button onclick="agregarAlCarrito('Camisa Anti Social Club', 350)">Agregar al carrito</button>
+    <section id="moda">
+      <h2>Moda</h2>
+      <div class="productos">
+        <div class="producto">
+          <img src="14.jpg" alt="Cadena">
+          <p>Cadena Cubana - $300,000</p>
+          <button onclick="agregarAlCarrito('Cadena Cubana', 300000)">Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <img src="15.jpg" alt="Lentes">
+          <p>Lentes Cartier - $17,000</p>
+          <button onclick="agregarAlCarrito('Lentes Cartier', 17000)">Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <img src="16.jpeg" alt="Reloj Jacob & Co">
+          <p>Reloj Jacob & Co El Padrino - $5,000,000</p>
+          <button onclick="agregarAlCarrito('Reloj Jacob & Co El Padrino', 5000000)">Agregar al carrito</button>
+        </div>
       </div>
-      <div class="producto">
-        <img src="12.jpeg" alt="Pantalón">
-        <p>Pantalón American Eagle- $550</p>
-        <button onclick="agregarAlCarrito('Pantalón American Eagle', 550)">Agregar al carrito</button>
-      </div>
-      <div class="producto">
-        <img src="13.jpeg" alt="Sudadera">
-        <p>Sudadera CrimeLife - $1700</p>
-        <button onclick="agregarAlCarrito('Sudadera CrimenLife', 1700)">Agregar al carrito</button>
-      </div>
+    </section>
 
-      <!-- NUEVOS PRODUCTOS AÑADIDOS -->
-      <div class="producto">
-        <img src="17.jpeg" alt="Camisa CrimeLife">
-        <p>Camisa CrimeLife - $850</p>
-        <button onclick="agregarAlCarrito('Camisa CrimeLife', 850)">Agregar al carrito</button>
-      </div>
-      <div class="producto">
-        <img src="18.jpeg" alt="Sudadera Palm Angels">
-        <p>Sudadera Palm Angels - $3200</p>
-        <button onclick="agregarAlCarrito('Sudadera Palm Angels', 3200)">Agregar al carrito</button>
-      </div>
-    </div>
-  </section>
+    <footer>
+      &copy; 2025 BelicosMX - Todos los derechos reservados
+    </footer>
 
-  <footer>
-    <p>&copy; 2025 Los BelicosMX. Todos los derechos reservados.</p>
-  </footer>
+    <button id="carrito" onclick="window.location.href='carrito.html'">🛒</button>
+  </div>
 
   <script>
+    window.addEventListener('load', function () {
+      document.getElementById('loader').style.display = 'none';
+    });
+
+    function accederTienda() {
+      document.getElementById('welcome-screen').style.display = 'none';
+      document.getElementById('main-content').classList.remove('oculto');
+      document.getElementById('carrito').style.display = 'flex';
+    }
+
     function agregarAlCarrito(nombre, precio) {
-      const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-      carrito.push({ nombre, precio });
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-      alert(nombre + ' agregado al carrito.');
+      const productos = JSON.parse(localStorage.getItem('carrito')) || [];
+      productos.push({ nombre, precio });
+      localStorage.setItem('carrito', JSON.stringify(productos));
+      alert(nombre + " fue agregado al carrito.");
     }
   </script>
 </body>
-</html>
+</html> 
