@@ -265,104 +265,77 @@
       </div>
     </nav>
 
-  <section id="tendencia">
-  <h2>Tendencia</h2>
-  <div class="productos">
-    <div class="producto">
-      <img src="11.jpg" alt="Camisa">
-      <p>Camisa Anti Social Club - $350</p>
-      <button onclick="agregarAlCarrito('Camisa Anti Social Club', 350)">Agregar al carrito</button>
-    </div>
-    <div class="producto">
-      <img src="12.jpeg" alt="Pantalón">
-      <p>Pantalón American Eagle- $550</p>
-      <button onclick="agregarAlCarrito('Pantalón American Eagle', 550)">Agregar al carrito</button>
-    </div>
-    <div class="producto">
-      <img src="13.jpeg" alt="Sudadera">
-      <p>Sudadera CrimeLife - $1700</p>
-      <button onclick="agregarAlCarrito('Sudadera CrimenLife', 1700)">Agregar al carrito</button>
-    </div>
-    <div class="producto">
-      <img src="17.jpg" alt="Playera Supreme">
-      <p>Playera Anymore - $900</p>
-      <button onclick="agregarAlCarrito('Playera Supreme', 900)">Agregar al carrito</button>
-    </div>
-    <div class="producto">
-      <img src="18.jpeg" alt="Chamarra Nike">
-      <p>Sudadera Amiri - $12,200</p>
-      <button onclick="agregarAlCarrito('Sudadra Amiri', 12200)">Agregar al carrito</button>
-    </div>
+    <section id="tendencia">
+      <h2>Tendencia</h2>
+      <div class="productos">
+        <div class="producto">
+          <img src="11.jpg" alt="Camisa">
+          <p>Camisa Anti Social Club - $350</p>
+          <button onclick="agregarAlCarrito('Camisa Anti Social Club', 350)">Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <img src="12.jpeg" alt="Pantalón">
+          <p>Pantalón American Eagle- $550</p>
+          <button onclick="agregarAlCarrito('Pantalón American Eagle', 550)">Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <img src="13.jpeg" alt="Sudadera">
+          <p>Sudadera CrimeLife - $1700</p>
+          <button onclick="agregarAlCarrito('Sudadera CrimenLife', 1700)">Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <img src="17.jpg" alt="Playera Supreme">
+          <p>Playera Anymore - $900</p>
+          <button onclick="agregarAlCarrito('Playera Supreme', 900)">Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <img src="18.jpeg" alt="Chamarra Nike">
+          <p>Sudadera Amiri - $12,200</p>
+          <button onclick="agregarAlCarrito('Sudadra Amiri', 12200)">Agregar al carrito</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="moda">
+      <h2>Moda</h2>
+      <div class="productos">
+        <div class="producto">
+          <img src="14.jpg" alt="Cadena">
+          <p>Cadena Cubana - $300,000</p>
+          <button onclick="agregarAlCarrito('Cadena Cubana', 300000)">Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <img src="15.jpg" alt="Lentes">
+          <p>Lentes Cartier - $17,000</p>
+          <button onclick="agregarAlCarrito('Lentes Cartier', 17000)">Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <img src="16.jpg" alt="Reloj">
+          <p>Reloj Cartier - $2,300,000</p>
+          <button onclick="agregarAlCarrito('Reloj Cartier', 2300000)">Agregar al carrito</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © 2025 Los BelicosMX - Tienda Oficial
+    </footer>
   </div>
-</section>
 
-<section id="moda">
-  <h2>Moda</h2>
-  <div class="productos">
-    <div class="producto">
-      <img src="14.jpg" alt="Cadena">
-      <p>Cadena Cubana - $300,000</p>
-      <button onclick="agregarAlCarrito('Cadena Cubana', 300000)">Agregar al carrito</button>
-    </div>
-    <div class="producto">
-      <img src="15.jpg" alt="Lentes">
-      <p>Lentes Cartier - $17,000</p>
-      <button onclick="agregarAlCarrito('Lentes Cartier', 17000)">Agregar al carrito</button>
-    </div>
-    <div class="producto">
-      <img src="19.jpeg" alt="Reloj Jacob & Co">
-      <p>Labubu -$1,500</p>
-      <button onclick="agregarAlCarrito('Labubu', 1500)">Agregar al carrito</button>
-    </div>
-    <div class="producto">
-      <img src="20.jpg" alt="Camisa">
-      <p>Curum - $350</p>
-      <button onclick="agregarAlCarrito('Curum', 30000)">Agregar al carrito</button>
-    </div>
-    <div class="producto">
-      <img src="21.jpg" alt="Xbox series s">
-      <p>Xbox Series S - $4,000</p>
-      <button onclick="agregarAlCarrito('Xbox Series S', 4000)">Agregar al carrito</button>
-    </div>
-  </div>
-</section>
+  <button id="carrito" onclick="window.location.href='carrito.html'">🛒</button>
 
-<footer>
-  &copy; 2025 BelicosMX - Todos los derechos reservados
-</footer>
+  <script>
+    window.onload = function() {
+      setTimeout(function() {
+        document.getElementById('loader').style.display = 'none';
+      }, 3000);
+    };
 
-<button id="carrito" onclick="window.location.href='carrito.html'">🛒</button>
-
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-<script>
-  window.addEventListener('load', function () {
-    document.getElementById('loader').style.display = 'none';
-  });
-
-  function accederTienda() {
-    document.getElementById('welcome-screen').style.display = 'none';
-    document.getElementById('main-content').classList.remove('oculto');
-    document.getElementById('carrito').style.display = 'flex';
-
-    confetti({
-      particleCount: 200,
-      spread: 100,
-      origin: { y: 0.6 }
-    });
-  }
-
-  function agregarAlCarrito(nombre, precio) {
-    const productos = JSON.parse(localStorage.getItem('carrito')) || [];
-    productos.push({ nombre, precio });
-    localStorage.setItem('carrito', JSON.stringify(productos));
-    alert(nombre + " fue agregado al carrito.");
-
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.5 }
-    });
-  }
-</script>
+    function accederTienda() {
+      document.getElementById('welcome-screen').style.display = 'none';
+      document.getElementById('main-content').classList.remove('oculto');
+      document.getElementById('carrito').style.display = 'flex';
+    }
+  </script>
 </body>
 </html>
