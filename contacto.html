@@ -5,97 +5,398 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contacto - Los BelicosMX</title>
   <style>
-    body {
-      background-color: #0b0b0b;
-      color: white;
-      font-family: 'Segoe UI', sans-serif;
-      padding: 40px;
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0b0b0b 0%, #1a1a1a 50%, #0b0b0b 100%);
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Efectos de fondo */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 40%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
+      animation: pulse 6s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.8; }
     }
 
     .form-container {
-      max-width: 600px;
-      margin: auto;
-      background-color: #111;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px #ffd700;
+      max-width: 650px;
+      margin: 40px auto;
+      background: rgba(17, 17, 17, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.3),
+                  0 10px 40px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      position: relative;
+      z-index: 1;
+      animation: slideUp 0.8s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     h1 {
       color: #ffd700;
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #ffd700, transparent);
+      border-radius: 2px;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+      position: relative;
     }
 
     label {
       display: block;
-      margin-top: 15px;
-      font-weight: bold;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #e0e0e0;
+      font-size: 1rem;
+      transition: color 0.3s ease;
     }
 
     input, textarea {
       width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 6px;
-      border: none;
+      padding: 15px 20px;
+      border-radius: 10px;
+      border: 2px solid #333;
+      background-color: rgba(40, 40, 40, 0.8);
+      color: white;
       font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #ffd700;
+      background-color: rgba(50, 50, 50, 0.9);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+      transform: translateY(-2px);
+    }
+
+    input:focus + label, textarea:focus + label {
+      color: #ffd700;
     }
 
     textarea {
       resize: vertical;
-      height: 150px;
+      min-height: 150px;
+      font-family: inherit;
+      line-height: 1.5;
+    }
+
+    .input-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #666;
+      transition: color 0.3s ease;
+      pointer-events: none;
+    }
+
+    input:focus ~ .input-icon {
+      color: #ffd700;
     }
 
     button {
-      margin-top: 20px;
-      background-color: #ffd700;
-      color: black;
+      width: 100%;
+      margin-top: 30px;
+      background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+      color: #000;
       border: none;
-      padding: 12px 24px;
-      font-size: 1rem;
-      font-weight: bold;
-      border-radius: 6px;
+      padding: 18px 24px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 12px;
       cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    button:hover::before {
+      left: 100%;
     }
 
     button:hover {
-      background-color: #e6c200;
+      background: linear-gradient(135deg, #ffed4e 0%, #ffd700 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(255, 215, 0, 0.4);
     }
 
-    a {
+    button:active {
+      transform: translateY(-1px);
+    }
+
+    .back-link {
       display: block;
       text-align: center;
       color: #ffd700;
-      margin-top: 20px;
+      margin-top: 30px;
       text-decoration: none;
+      font-weight: 500;
+      padding: 12px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
     }
 
-    a:hover {
-      text-decoration: underline;
+    .back-link:hover {
+      background-color: rgba(255, 215, 0, 0.1);
+      border-color: rgba(255, 215, 0, 0.3);
+      text-decoration: none;
+      transform: translateY(-2px);
+    }
+
+    .contact-info {
+      background: rgba(40, 40, 40, 0.5);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      border-left: 4px solid #ffd700;
+    }
+
+    .contact-info h3 {
+      color: #ffd700;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+
+    .contact-info p {
+      margin-bottom: 8px;
+      color: #ccc;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .required {
+      color: #ff6b6b;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+      
+      .form-container {
+        padding: 30px 20px;
+        margin: 20px auto;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      input, textarea {
+        padding: 12px 15px;
+      }
+      
+      button {
+        padding: 15px 20px;
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .form-container {
+        padding: 25px 15px;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+      }
     }
   </style>
 </head>
 <body>
   <div class="form-container">
-    <h1>Contacto</h1>
-    <form action="https://formsubmit.co/TU_CORREO@ejemplo.com" method="POST">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_next" value="https://tusitio.com/gracias.html">
+    <h1>📞 Contacto</h1>
+    
+    <div class="contact-info">
+      <h3>¿Necesitas ayuda?</h3>
+      <p>📧 Respuesta en 24-48 horas</p>
+      <p>💬 Soporte técnico y ventas</p>
+      <p>🔒 Información 100% confidencial</p>
+    </div>
 
-      <label for="nombre">Nombre</label>
-      <input type="text" id="nombre" name="nombre" required>
+    <form action="gracias.html" method="GET" onsubmit="return enviarFormulario(event)">
+      <div class="form-group">
+        <label for="nombre">Nombre completo <span class="required">*</span></label>
+        <input type="text" id="nombre" name="nombre" required>
+        <span class="input-icon">👤</span>
+      </div>
 
-      <label for="email">Correo electrónico</label>
-      <input type="email" id="email" name="email" required>
+      <div class="form-group">
+        <label for="email">Correo electrónico <span class="required">*</span></label>
+        <input type="email" id="email" name="email" required>
+        <span class="input-icon">📧</span>
+      </div>
 
-      <label for="mensaje">Mensaje</label>
-      <textarea id="mensaje" name="mensaje" required></textarea>
+      <div class="form-group">
+        <label for="telefono">Teléfono (opcional)</label>
+        <input type="tel" id="telefono" name="telefono" placeholder="+52 123 456 7890">
+        <span class="input-icon">📱</span>
+      </div>
 
-      <button type="submit">Enviar mensaje</button>
+      <div class="form-group">
+        <label for="asunto">Asunto</label>
+        <input type="text" id="asunto" name="asunto" placeholder="¿En qué podemos ayudarte?">
+        <span class="input-icon">📝</span>
+      </div>
+
+      <div class="form-group">
+        <label for="mensaje">Mensaje <span class="required">*</span></label>
+        <textarea id="mensaje" name="mensaje" placeholder="Escribe tu mensaje aquí..." required></textarea>
+      </div>
+
+      <button type="submit">
+        ✉️ Enviar Mensaje
+      </button>
     </form>
-    <a href="index.html">← Volver a la tienda</a>
+    
+    <a href="index.html" class="back-link">
+      ← Volver a la tienda
+    </a>
   </div>
+
+  <script>
+    function enviarFormulario(event) {
+      event.preventDefault();
+      
+      // Simular envío del formulario
+      const button = event.target.querySelector('button[type="submit"]');
+      const originalText = button.innerHTML;
+      
+      // Cambiar botón a estado de carga
+      button.innerHTML = '⏳ Enviando...';
+      button.disabled = true;
+      
+      // Simular proceso de envío
+      setTimeout(() => {
+        // Aquí normalmente enviarías los datos a tu servidor
+        // Para la demo, simplemente redirigimos
+        
+        // Guardar datos en localStorage para mostrar en página de gracias
+        const formData = {
+          nombre: document.getElementById('nombre').value,
+          email: document.getElementById('email').value,
+          telefono: document.getElementById('telefono').value,
+          asunto: document.getElementById('asunto').value,
+          mensaje: document.getElementById('mensaje').value,
+          fecha: new Date().toLocaleString('es-MX')
+        };
+        
+        if (window.localStorage) {
+          window.localStorage.setItem('contactData', JSON.stringify(formData));
+        }
+        
+        // Redirigir a página de gracias
+        window.location.href = 'gracias.html';
+      }, 1500);
+      
+      return false;
+    }
+
+    // Efectos adicionales
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animación de entrada para elementos del formulario
+      const formGroups = document.querySelectorAll('.form-group');
+      formGroups.forEach((group, index) => {
+        group.style.opacity = '0';
+        group.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+          group.style.transition = 'all 0.5s ease';
+          group.style.opacity = '1';
+          group.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+
+      // Validación en tiempo real
+      const inputs = document.querySelectorAll('input, textarea');
+      inputs.forEach(input => {
+        input.addEventListener('blur', function() {
+          if (this.hasAttribute('required') && !this.value.trim()) {
+            this.style.borderColor = '#ff6b6b';
+          } else if (this.type === 'email' && this.value && !isValidEmail(this.value)) {
+            this.style.borderColor = '#ff6b6b';
+          } else {
+            this.style.borderColor = '#ffd700';
+          }
+        });
+
+        input.addEventListener('input', function() {
+          this.style.borderColor = '#333';
+        });
+      });
+    });
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+  </script>
 </body>
 </html>
