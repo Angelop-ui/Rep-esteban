@@ -391,24 +391,147 @@
     </footer>
   </div>
 
-  <button id="carrito" onclick="window.location.href='carrito.html'">🛒</button>
+  <button id="carrito" onclick="irAlCarrito()">🛒</button>
 
   <script>
     window.onload = function() {
       setTimeout(function() {
         document.getElementById('loader').style.display = 'none';
       }, 3000);
+      
+      cargarCarrito();
     };
 
     function accederTienda() {
       document.getElementById('welcome-screen').style.display = 'none';
       document.getElementById('main-content').classList.remove('oculto');
       document.getElementById('carrito').style.display = 'flex';
+      
+      actualizarContadorCarrito();
     }
 
+    // Sistema de carrito
+    let carrito = [];
+    let totalCarrito = 0;
+    let contadorCarrito = 0;
+
     function agregarAlCarrito(nombre, precio) {
-      // Aquí puedes agregar la lógica para manejar el carrito
-      alert(`${nombre} agregado al carrito por $${precio.toLocaleString()}`);
+      // Verificar si el producto ya existe en el carrito
+      const productoExistente = carrito.find(item => item.nombre === nombre);
+      
+      if (productoExistente) {
+        productoExistente.cantidad += 1;
+        productoExistente.subtotal = productoExistente.precio * productoExistente.cantidad;
+      } else {
+        carrito.push({
+          nombre: nombre,
+          precio: precio,
+          cantidad: 1,
+          subtotal: precio
+        });
+      }
+      
+      contadorCarrito++;
+      totalCarrito += precio;
+      
+      // Guardar carrito en almacenamiento local
+      guardarCarrito();
+      
+      // Actualizar contador visual del carrito
+      actualizarContadorCarrito();
+      
+      // Mostrar confirmación
+      mostrarConfirmacion(nombre, precio);
+    }
+
+    function guardarCarrito() {
+      const carritoData = {
+        productos: carrito,
+        total: totalCarrito,
+        contador: contadorCarrito
+      };
+      // Simular guardado (en una implementación real usarías localStorage)
+      window.carritoData = carritoData;
+    }
+
+    function cargarCarrito() {
+      if (window.carritoData) {
+        carrito = window.carritoData.productos || [];
+        totalCarrito = window.carritoData.total || 0;
+        contadorCarrito = window.carritoData.contador || 0;
+        actualizarContadorCarrito();
+      }
+    }
+
+    function actualizarContadorCarrito() {
+      const carritoBtn = document.getElementById('carrito');
+      if (contadorCarrito > 0) {
+        carritoBtn.innerHTML = `🛒 ${contadorCarrito}`;
+        carritoBtn.style.fontSize = '1rem';
+        carritoBtn.style.fontWeight = 'bold';
+      } else {
+        carritoBtn.innerHTML = '🛒';
+        carritoBtn.style.fontSize = '1.5rem';
+      }
+    }
+
+    function mostrarConfirmacion(nombre, precio) {
+      // Crear elemento de confirmación
+      const confirmacion = document.createElement('div');
+      confirmacion.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #4CAF50;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        z-index: 10000;
+        font-weight: bold;
+        transform: translateX(400px);
+        transition: transform 0.3s ease;
+      `;
+      confirmacion.innerHTML = `
+        ✅ ${nombre}<br>
+        <small>${precio.toLocaleString()} agregado al carrito</small>
+      `;
+      
+      document.body.appendChild(confirmacion);
+      
+      // Animar entrada
+      setTimeout(() => {
+        confirmacion.style.transform = 'translateX(0)';
+      }, 100);
+      
+      // Remover después de 3 segundos
+      setTimeout(() => {
+        confirmacion.style.transform = 'translateX(400px)';
+        setTimeout(() => {
+          document.body.removeChild(confirmacion);
+        }, 300);
+      }, 3000);
+    }
+
+    function irAlCarrito() {
+      // Mostrar resumen del carrito antes de ir a la página
+      if (carrito.length === 0) {
+        alert('Tu carrito está vacío');
+        return;
+      }
+      
+      let resumen = '🛒 RESUMEN DEL CARRITO:\n\n';
+      carrito.forEach(item => {
+        resumen += `${item.nombre}\n`;
+        resumen += `Cantidad: ${item.cantidad} x ${item.precio.toLocaleString()} = ${item.subtotal.toLocaleString()}\n\n`;
+      });
+      resumen += `TOTAL: ${totalCarrito.toLocaleString()}`;
+      
+      if (confirm(resumen + '\n\n¿Proceder al checkout?')) {
+        // Aquí redirigirías a carrito.html
+        alert('Redirigiendo al carrito...');
+        // window.location.href = 'carrito.html';
+      }
     }
   </script>
 </body>
