@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Los BelicosMX - Tienda Oficial</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     body {
       margin: 0;
@@ -132,10 +133,6 @@
       animation: fadeInUp 0.8s ease-in-out forwards;
     }
 
-    .producto:nth-child(1) { animation-delay: 0.2s; }
-    .producto:nth-child(2) { animation-delay: 0.4s; }
-    .producto:nth-child(3) { animation-delay: 0.6s; }
-
     .producto img {
       width: 100%;
       height: 200px;
@@ -176,14 +173,8 @@
     }
 
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes bounce {
@@ -268,31 +259,6 @@
     <section id="tendencia">
       <h2>Tendencia</h2>
       <div class="productos">
-        <div class="producto">
-          <img src="11.jpg" alt="Camisa">
-          <p>Camisa Anti Social Club - $350</p>
-          <button onclick="agregarAlCarrito('Camisa Anti Social Club', 350)">Agregar al carrito</button>
-        </div>
-        <div class="producto">
-          <img src="12.jpeg" alt="Pantalón">
-          <p>Pantalón American Eagle- $550</p>
-          <button onclick="agregarAlCarrito('Pantalón American Eagle', 550)">Agregar al carrito</button>
-        </div>
-        <div class="producto">
-          <img src="13.jpeg" alt="Sudadera">
-          <p>Sudadera CrimeLife - $1700</p>
-          <button onclick="agregarAlCarrito('Sudadera CrimenLife', 1700)">Agregar al carrito</button>
-        </div>
-        <div class="producto">
-          <img src="17.jpg" alt="Playera Supreme">
-          <p>Playera Anymore - $900</p>
-          <button onclick="agregarAlCarrito('Playera Supreme', 900)">Agregar al carrito</button>
-        </div>
-        <div class="producto">
-          <img src="18.jpeg" alt="Chamarra Nike">
-          <p>Sudadera Amiri - $12,200</p>
-          <button onclick="agregarAlCarrito('Sudadra Amiri', 12200)">Agregar al carrito</button>
-        </div>
       </div>
     </section>
 
@@ -314,6 +280,16 @@
           <p>Reloj Cartier - $2,300,000</p>
           <button onclick="agregarAlCarrito('Reloj Cartier', 2300000)">Agregar al carrito</button>
         </div>
+        <div class="producto">
+          <img src="19.jpg" alt="Pulsera">
+          <p>Pulsera de Diamantes - $45,000</p>
+          <button onclick="agregarAlCarrito('Pulsera de Diamantes', 45000)">Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <img src="20.jpg" alt="Anillo">
+          <p>Anillo de Oro 24k - $60,000</p>
+          <button onclick="agregarAlCarrito('Anillo de Oro 24k', 60000)">Agregar al carrito</button>
+        </div>
       </div>
     </section>
 
@@ -322,19 +298,37 @@
     </footer>
   </div>
 
-  <button id="carrito" onclick="window.location.href='carrito.html'">🛒</button>
+  <button id="carrito" onclick="mostrarCarrito()">🛒</button>
 
   <script>
-    window.onload = function() {
-      setTimeout(function() {
+    window.onload = function () {
+      setTimeout(() => {
         document.getElementById('loader').style.display = 'none';
       }, 3000);
     };
+
+    function lanzarConfeti() {
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    }
 
     function accederTienda() {
       document.getElementById('welcome-screen').style.display = 'none';
       document.getElementById('main-content').classList.remove('oculto');
       document.getElementById('carrito').style.display = 'flex';
+      lanzarConfeti();
+    }
+
+    function mostrarCarrito() {
+      lanzarConfeti();
+      window.location.href = 'carrito.html';
+    }
+
+    function agregarAlCarrito(nombre, precio) {
+      alert(`${nombre} agregado al carrito por $${precio}`);
     }
   </script>
 </body>
