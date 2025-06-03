@@ -22,42 +22,41 @@
 
     .productos {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* más ancho */
-      gap: 25px;
-      padding: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 20px;
     }
 
     .producto {
       background-color: white;
       color: black;
-      padding: 20px;
-      border-radius: 10px;
+      padding: 15px;
+      border-radius: 8px;
       text-align: center;
-      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     .producto img {
       width: 100%;
-      height: 250px; /* más alto */
+      height: 180px;
       object-fit: cover;
-      border-radius: 10px;
+      border-radius: 8px;
     }
 
     .producto p {
-      margin: 12px 0;
+      margin: 10px 0;
       font-weight: bold;
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
 
     .producto button {
       background-color: #ffd700;
       color: black;
       border: none;
-      padding: 12px;
+      padding: 10px;
       border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
-      font-size: 1rem;
     }
 
     #carrito {
@@ -81,10 +80,10 @@
 
     .btn-regresar {
       display: block;
-      margin: 30px auto;
+      margin: 25px auto;
       background-color: #ffd700;
       color: black;
-      padding: 12px 24px;
+      padding: 10px 20px;
       border: none;
       border-radius: 6px;
       text-align: center;
@@ -95,7 +94,7 @@
 
     @media (max-width: 600px) {
       .producto img {
-        height: 200px;
+        height: 150px;
       }
     }
   </style>
@@ -133,4 +132,3 @@
 
 </body>
 </html>
-
