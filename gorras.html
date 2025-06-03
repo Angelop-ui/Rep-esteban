@@ -11,7 +11,6 @@
       background-color: #0b0b0b;
       color: white;
     }
-
     header {
       background-color: #111;
       padding: 15px;
@@ -19,52 +18,57 @@
       font-size: 1.5rem;
       color: #ffd700;
     }
-
     .productos {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 20px;
-      padding: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 35px;
+      padding: 40px;
+      justify-content: center;
+      max-width: 1400px;
+      margin: 0 auto;
     }
-
     .producto {
       background-color: white;
       color: black;
-      padding: 10px;
-      border-radius: 6px;
+      padding: 20px;
+      border-radius: 8px;
       text-align: center;
-      max-width: 170px;
-      margin: 0 auto;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      height: 240px;
+      height: 400px;
     }
-
     .producto img {
       width: 100%;
-      height: 100px;
+      height: 250px;
       object-fit: cover;
-      border-radius: 4px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      flex-shrink: 0;
     }
-
     .producto p {
-      font-size: 0.85rem;
-      margin: 8px 0;
+      font-size: 1rem;
+      margin: 10px 0;
       font-weight: bold;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-
     .producto button {
-      font-size: 0.8rem;
-      padding: 6px;
-      border-radius: 4px;
+      font-size: 0.9rem;
+      padding: 10px 16px;
+      border-radius: 6px;
       background-color: #ffd700;
       color: black;
       border: none;
       cursor: pointer;
       font-weight: bold;
+      flex-shrink: 0;
+      transition: background 0.3s;
     }
-
+    .producto button:hover {
+      background-color: #e6c200;
+    }
     #carrito {
       position: fixed;
       bottom: 20px;
@@ -82,37 +86,49 @@
       box-shadow: 0 0 12px #ffd700;
       cursor: pointer;
       z-index: 1000;
+      transition: background 0.3s;
     }
-
+    #carrito:hover {
+      background-color: #e6c200;
+    }
     .btn-regresar {
       display: block;
-      margin: 20px auto;
+      margin: 30px auto;
       background-color: #ffd700;
       color: black;
-      padding: 10px 20px;
+      padding: 12px 24px;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       text-align: center;
       font-weight: bold;
       cursor: pointer;
       text-decoration: none;
+      transition: background 0.3s;
+      font-size: 1rem;
     }
-
-    @media (max-width: 600px) {
-      .producto img {
-        height: 90px;
+    .btn-regresar:hover {
+      background-color: #e6c200;
+    }
+    @media (max-width: 768px) {
+      .productos {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+        padding: 20px;
       }
-
       .producto {
-        height: 220px;
+        height: 350px;
+      }
+      .producto img {
+        height: 200px;
+      }
+      .producto p {
+        font-size: 0.9rem;
       }
     }
   </style>
 </head>
 <body>
-
   <header>Gorras Bélicas</header>
-
   <div class="productos">
     <div class="producto">
       <img src="5.jpeg" alt="Gorra 1">
@@ -125,21 +141,18 @@
       <button onclick="agregarAlCarrito('Dandy Hats Sad Boyz', 2600, 'gorra2.jpg')">Agregar al carrito</button>
     </div>
     <div class="producto">
-  <img src="24.jpeg" alt="Gorra 3">
-  <p>Dandy Hats Clave Ali - $3500</p>
-  <button onclick="agregarAlCarrito('Dandy Hats Clave Ali', 3500, '7.jpeg')">Agregar al carrito</button>
+      <img src="24.jpeg" alt="Gorra 3">
+      <p>Dandy Hats Clave Ali - $3500</p>
+      <button onclick="agregarAlCarrito('Dandy Hats Clave Ali', 3500, '7.jpeg')">Agregar al carrito</button>
     </div>
     <div class="producto">
-  <img src="25.jpeg" alt="Gorra 3">
-  <p>31 Hats El Mago - $3500</p>
-  <button onclick="agregarAlCarrito('31 Hats El Mago', 3500, '7.jpeg')">Agregar al carrito</button>
-</div>
+      <img src="25.jpeg" alt="Gorra 4">
+      <p>31 Hats El Mago - $3500</p>
+      <button onclick="agregarAlCarrito('31 Hats El Mago', 3500, '7.jpeg')">Agregar al carrito</button>
+    </div>
   </div>
-
   <a href="index.html" class="btn-regresar">Regresar a la tienda</a>
-
   <button id="carrito" onclick="window.location.href='carrito.html'">🛒</button>
-
   <script>
     function agregarAlCarrito(nombre, precio, imagen) {
       const producto = { nombre, precio, imagen };
@@ -149,6 +162,5 @@
       alert('Producto agregado al carrito');
     }
   </script>
-
 </body>
 </html>
