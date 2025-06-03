@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -297,64 +296,73 @@
   </div>
 </section>
 
-
-    <section id="moda">
-      <h2>Moda</h2>
-      <div class="productos">
-        <div class="producto">
-          <img src="14.jpg" alt="Cadena">
-          <p>Cadena Cubana - $300,000</p>
-          <button onclick="agregarAlCarrito('Cadena Cubana', 300000)">Agregar al carrito</button>
-        </div>
-        <div class="producto">
-          <img src="15.jpg" alt="Lentes">
-          <p>Lentes Cartier - $17,000</p>
-          <button onclick="agregarAlCarrito('Lentes Cartier', 17000)">Agregar al carrito</button>
-        </div>
-        <div class="producto">
-          <img src="19.jpeg" alt="Reloj Jacob & Co">
-          <p>Labubu -$1,500</p>
-          <button onclick="agregarAlCarrito('Labubu', 1500)">Agregar al carrito</button>
-        </div
+<section id="moda">
+  <h2>Moda</h2>
   <div class="productos">
+    <div class="producto">
+      <img src="14.jpg" alt="Cadena">
+      <p>Cadena Cubana - $300,000</p>
+      <button onclick="agregarAlCarrito('Cadena Cubana', 300000)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="15.jpg" alt="Lentes">
+      <p>Lentes Cartier - $17,000</p>
+      <button onclick="agregarAlCarrito('Lentes Cartier', 17000)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="19.jpeg" alt="Reloj Jacob & Co">
+      <p>Labubu -$1,500</p>
+      <button onclick="agregarAlCarrito('Labubu', 1500)">Agregar al carrito</button>
+    </div>
     <div class="producto">
       <img src="20.jpg" alt="Camisa">
       <p>Curum - $350</p>
       <button onclick="agregarAlCarrito('Curum', 30000)">Agregar al carrito</button>
     </div>
-      <div class="producto">
+    <div class="producto">
       <img src="21.jpg" alt="Xbox series s">
       <p>Xbox Series S - $4,000</p>
       <button onclick="agregarAlCarrito('Xbox Series S', 4000)">Agregar al carrito</button>
     </div>
-</section>
-      </div>
-    </section>
-
-    <footer>
-      &copy; 2025 BelicosMX - Todos los derechos reservados
-    </footer>
-
-    <button id="carrito" onclick="window.location.href='carrito.html'">🛒</button>
   </div>
+</section>
 
-  <script>
-    window.addEventListener('load', function () {
-      document.getElementById('loader').style.display = 'none';
+<footer>
+  &copy; 2025 BelicosMX - Todos los derechos reservados
+</footer>
+
+<button id="carrito" onclick="window.location.href='carrito.html'">🛒</button>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<script>
+  window.addEventListener('load', function () {
+    document.getElementById('loader').style.display = 'none';
+  });
+
+  function accederTienda() {
+    document.getElementById('welcome-screen').style.display = 'none';
+    document.getElementById('main-content').classList.remove('oculto');
+    document.getElementById('carrito').style.display = 'flex';
+
+    confetti({
+      particleCount: 200,
+      spread: 100,
+      origin: { y: 0.6 }
     });
+  }
 
-    function accederTienda() {
-      document.getElementById('welcome-screen').style.display = 'none';
-      document.getElementById('main-content').classList.remove('oculto');
-      document.getElementById('carrito').style.display = 'flex';
-    }
+  function agregarAlCarrito(nombre, precio) {
+    const productos = JSON.parse(localStorage.getItem('carrito')) || [];
+    productos.push({ nombre, precio });
+    localStorage.setItem('carrito', JSON.stringify(productos));
+    alert(nombre + " fue agregado al carrito.");
 
-    function agregarAlCarrito(nombre, precio) {
-      const productos = JSON.parse(localStorage.getItem('carrito')) || [];
-      productos.push({ nombre, precio });
-      localStorage.setItem('carrito', JSON.stringify(productos));
-      alert(nombre + " fue agregado al carrito.");
-    }
-  </script>
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.5 }
+    });
+  }
+</script>
 </body>
-</html> 
+</html>
