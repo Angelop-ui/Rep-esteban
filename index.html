@@ -130,23 +130,33 @@
       opacity: 0;
       transform: translateY(20px);
       animation: fadeInUp 0.8s ease-in-out forwards;
+      display: flex;
+      flex-direction: column;
+      height: 350px;
     }
 
     .producto:nth-child(1) { animation-delay: 0.2s; }
     .producto:nth-child(2) { animation-delay: 0.4s; }
     .producto:nth-child(3) { animation-delay: 0.6s; }
+    .producto:nth-child(4) { animation-delay: 0.8s; }
+    .producto:nth-child(5) { animation-delay: 1.0s; }
 
     .producto img {
       width: 100%;
       height: 200px;
       object-fit: cover;
       margin-bottom: 10px;
+      flex-shrink: 0;
     }
 
     .producto p {
       color: #111;
       font-weight: bold;
       margin-bottom: 10px;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .producto button {
@@ -156,6 +166,7 @@
       border-radius: 6px;
       font-weight: bold;
       cursor: pointer;
+      flex-shrink: 0;
     }
 
     .producto button:hover {
@@ -239,6 +250,7 @@
 
       .producto {
         font-size: 0.9rem;
+        height: 320px;
       }
     }
   </style>
@@ -314,7 +326,6 @@
           <img src="16.jpg" alt="Reloj">
           <p>Reloj Cartier - $2,300,000</p>
           <button onclick="agregarAlCarrito('Reloj Cartier', 2300000)">Agregar al carrito</button>
-        </div>
         </div>
         <div class="producto">
           <img src="19.jpg" alt="Pulsera">
