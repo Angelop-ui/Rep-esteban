@@ -22,39 +22,42 @@
 
     .productos {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      padding: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* más ancho */
+      gap: 25px;
+      padding: 30px;
     }
 
     .producto {
       background-color: white;
       color: black;
-      padding: 15px;
-      border-radius: 8px;
+      padding: 20px;
+      border-radius: 10px;
       text-align: center;
+      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
     }
 
     .producto img {
       width: 100%;
-      height: 200px;
+      height: 250px; /* más alto */
       object-fit: cover;
-      border-radius: 8px;
+      border-radius: 10px;
     }
 
     .producto p {
-      margin: 10px 0;
+      margin: 12px 0;
       font-weight: bold;
+      font-size: 1.1rem;
     }
 
     .producto button {
       background-color: #ffd700;
       color: black;
       border: none;
-      padding: 10px;
+      padding: 12px;
       border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
+      font-size: 1rem;
     }
 
     #carrito {
@@ -78,10 +81,10 @@
 
     .btn-regresar {
       display: block;
-      margin: 20px auto;
+      margin: 30px auto;
       background-color: #ffd700;
       color: black;
-      padding: 10px 20px;
+      padding: 12px 24px;
       border: none;
       border-radius: 6px;
       text-align: center;
@@ -92,7 +95,7 @@
 
     @media (max-width: 600px) {
       .producto img {
-        height: 160px;
+        height: 200px;
       }
     }
   </style>
@@ -130,3 +133,4 @@
 
 </body>
 </html>
+
