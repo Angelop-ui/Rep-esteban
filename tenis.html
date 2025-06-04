@@ -6,57 +6,100 @@
   <title>Tenis - Los BelicosMX</title>
   <style>
     body {
+      margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background-color: #0b0b0b;
       color: white;
-      margin: 0;
       padding: 20px;
     }
 
     h1 {
       text-align: center;
       color: #ffd700;
+      font-size: 2.5rem;
+      text-shadow: 0 0 12px #ffd700;
+      margin-bottom: 30px;
     }
 
     .productos {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 35px;
+      padding: 0 40px;
+      justify-content: center;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
     .producto {
-      background-color: white;
-      color: black;
-      padding: 15px;
-      border-radius: 10px;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 20px;
       text-align: center;
+      border-radius: 8px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease-in-out forwards;
+      display: flex;
+      flex-direction: column;
+      min-height: 450px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
+    .producto:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .producto:nth-child(1) { animation-delay: 0.2s; }
+    .producto:nth-child(2) { animation-delay: 0.4s; }
+    .producto:nth-child(3) { animation-delay: 0.6s; }
+    .producto:nth-child(4) { animation-delay: 0.8s; }
+    .producto:nth-child(5) { animation-delay: 1.0s; }
 
     .producto img {
       width: 100%;
-      height: 200px;
+      height: 280px;
       object-fit: cover;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
+      flex-shrink: 0;
+      border-radius: 4px;
+      background-color: #f5f5f5;
+    }
+
+    .producto p {
+      color: #111;
+      font-weight: bold;
+      margin-bottom: 15px;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 1rem;
+      line-height: 1.4;
     }
 
     .producto button {
+      padding: 12px 20px;
       background-color: #ffd700;
-      color: black;
       border: none;
-      padding: 10px 15px;
+      border-radius: 6px;
       font-weight: bold;
-      border-radius: 8px;
       cursor: pointer;
-      margin-top: 10px;
+      flex-shrink: 0;
+      font-size: 1rem;
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
     .producto button:hover {
       background-color: #e6c200;
+      transform: scale(1.05);
     }
 
     .volver {
-      margin-top: 20px;
+      margin-top: 40px;
       text-align: center;
     }
 
@@ -64,6 +107,97 @@
       color: #ffd700;
       font-weight: bold;
       text-decoration: none;
+      font-size: 1.1rem;
+      padding: 10px 20px;
+      border: 2px solid #ffd700;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .volver a:hover {
+      background-color: #ffd700;
+      color: black;
+    }
+
+    #carrito {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #ffd700;
+      color: black;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 12px #ffd700;
+      cursor: pointer;
+      transition: background 0.3s;
+      z-index: 1000;
+    }
+
+    #carrito:hover {
+      background-color: #e6c200;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .productos {
+        gap: 25px;
+        padding: 0 20px;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      }
+
+      .producto {
+        font-size: 0.9rem;
+        min-height: 380px;
+        padding: 15px;
+      }
+
+      .producto img {
+        height: 220px;
+      }
+
+      .producto p {
+        font-size: 0.9rem;
+      }
+
+      .producto button {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .productos {
+        grid-template-columns: 1fr;
+        padding: 0 10px;
+      }
+
+      .producto {
+        min-height: 350px;
+      }
+
+      .producto img {
+        height: 200px;
+      }
     }
   </style>
 </head>
@@ -71,44 +205,152 @@
   <h1>Tenis Bélicos</h1>
   <div class="productos">
     <div class="producto">
-      <img src="7.jpeg" alt="Tenis 1">
+      <img src="7.jpeg" alt="Tenis Nike Air">
       <p>Tenis Nike Air - $1,200</p>
-      <button onclick="agregarAlCarrito('Tenis Nike Air', 1200, 'tenis1.jpg')">Agregar al carrito</button>
+      <button onclick="agregarAlCarrito('Tenis Nike Air', 1200)">Agregar al carrito</button>
     </div>
     <div class="producto">
-      <img src="26.jpg" alt="Tenis 2">
+      <img src="26.jpg" alt="Tenis Jordan Low">
       <p>Tenis Jordan Low - $1,500</p>
-      <button onclick="agregarAlCarrito('Tenis Jordan Low', 1500, 'tenis2.jpg')">Agregar al carrito</button>
+      <button onclick="agregarAlCarrito('Tenis Jordan Low', 1500)">Agregar al carrito</button>
     </div>
-      <div class="producto">
-      <img src="27.jpg" alt="Tenis 2">
-      <p>Alexander Macqueen - $6,500</p>
-      <button onclick="agregarAlCarrito('Alexander Macqueen', 6500, 'tenis2.jpg')">Agregar al carrito</button>
+    <div class="producto">
+      <img src="27.jpg" alt="Alexander McQueen">
+      <p>Alexander McQueen - $6,500</p>
+      <button onclick="agregarAlCarrito('Alexander McQueen', 6500)">Agregar al carrito</button>
     </div>
-      <div class="producto">
-      <img src="28.jpg" alt="Tenis 2">
-      <p>Botitas Dior- $13,500</p>
-      <button onclick="agregarAlCarrito('Botitas Dior', 13000, 'tenis2.jpg')">Agregar al carrito</button>
+    <div class="producto">
+      <img src="28.jpg" alt="Botitas Dior">
+      <p>Botitas Dior - $13,500</p>
+      <button onclick="agregarAlCarrito('Botitas Dior', 13500)">Agregar al carrito</button>
     </div>
-      <div class="producto">
-      <img src="29.jpg" alt="Tenis 2">
+    <div class="producto">
+      <img src="29.jpg" alt="Amiri">
       <p>Amiri - $18,500</p>
-      <button onclick="agregarAlCarrito('Amiri', 18000, 'tenis2.jpg')">Agregar al carrito</button>
+      <button onclick="agregarAlCarrito('Amiri', 18500)">Agregar al carrito</button>
     </div>
+  </div>
+  
+  <div class="volver">
+    <a href="index.html#tienda">← Regresar a la tienda</a>
   </div>
 
-  <div class="volver">
-  <a href="index.html#tienda">← Regresar a la tienda</a>
-  </div>
+  <button id="carrito" onclick="irAlCarrito()">🛒</button>
 
   <script>
-    function agregarAlCarrito(nombre, precio, imagen) {
-      const producto = { nombre, precio, imagen };
-      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-      carrito.push(producto);
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-      alert('Producto agregado al carrito');
+    let carrito = [];
+    let totalCarrito = 0;
+    let contadorCarrito = 0;
+
+    function agregarAlCarrito(nombre, precio) {
+      const productoExistente = carrito.find(item => item.nombre === nombre);
+      
+      if (productoExistente) {
+        productoExistente.cantidad += 1;
+        productoExistente.subtotal = productoExistente.precio * productoExistente.cantidad;
+      } else {
+        carrito.push({
+          nombre: nombre,
+          precio: precio,
+          cantidad: 1,
+          subtotal: precio
+        });
+      }
+      
+      contadorCarrito++;
+      totalCarrito += precio;
+      
+      guardarCarrito();
+      actualizarContadorCarrito();
+      mostrarConfirmacion(nombre, precio);
     }
+
+    function guardarCarrito() {
+      const carritoData = {
+        productos: carrito,
+        total: totalCarrito,
+        contador: contadorCarrito
+      };
+      window.carritoData = carritoData;
+    }
+
+    function cargarCarrito() {
+      if (window.carritoData) {
+        carrito = window.carritoData.productos || [];
+        totalCarrito = window.carritoData.total || 0;
+        contadorCarrito = window.carritoData.contador || 0;
+        actualizarContadorCarrito();
+      }
+    }
+
+    function actualizarContadorCarrito() {
+      const carritoBtn = document.getElementById('carrito');
+      if (contadorCarrito > 0) {
+        carritoBtn.innerHTML = `🛒 ${contadorCarrito}`;
+        carritoBtn.style.fontSize = '1rem';
+        carritoBtn.style.fontWeight = 'bold';
+      } else {
+        carritoBtn.innerHTML = '🛒';
+        carritoBtn.style.fontSize = '1.5rem';
+      }
+    }
+
+    function mostrarConfirmacion(nombre, precio) {
+      const confirmacion = document.createElement('div');
+      confirmacion.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #4CAF50;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        z-index: 10000;
+        font-weight: bold;
+        transform: translateX(400px);
+        transition: transform 0.3s ease;
+      `;
+      confirmacion.innerHTML = `
+        ✅ ${nombre}<br>
+        <small>$${precio.toLocaleString()} agregado al carrito</small>
+      `;
+      
+      document.body.appendChild(confirmacion);
+      
+      setTimeout(() => {
+        confirmacion.style.transform = 'translateX(0)';
+      }, 100);
+      
+      setTimeout(() => {
+        confirmacion.style.transform = 'translateX(400px)';
+        setTimeout(() => {
+          document.body.removeChild(confirmacion);
+        }, 300);
+      }, 3000);
+    }
+
+    function irAlCarrito() {
+      if (carrito.length === 0) {
+        alert('Tu carrito está vacío');
+        return;
+      }
+      
+      let resumen = '🛒 RESUMEN DEL CARRITO:\n\n';
+      carrito.forEach(item => {
+        resumen += `${item.nombre}\n`;
+        resumen += `Cantidad: ${item.cantidad} x $${item.precio.toLocaleString()} = $${item.subtotal.toLocaleString()}\n\n`;
+      });
+      resumen += `TOTAL: $${totalCarrito.toLocaleString()}`;
+      
+      if (confirm(resumen + '\n\n¿Proceder al checkout?')) {
+        alert('Redirigiendo al carrito...');
+      }
+    }
+
+    window.onload = function() {
+      cargarCarrito();
+    };
   </script>
 </body>
 </html>
