@@ -166,6 +166,8 @@
       font-size: 0.9rem;
       line-height: 1.4;
     }
+
+
   </style>
 </head>
 <body>
@@ -308,21 +310,33 @@
   <script>
     let total = 0;
     let metodoSeleccionado = '';
+    let carrito = []; // Array para almacenar productos en memoria
+
+    function agregarProducto(nombre, precio, imagen) {
+      const producto = {
+        nombre: nombre,
+        precio: precio,
+        imagen: imagen
+      };
+      carrito.push(producto);
+      cargarProductos();
+    }
 
     function cargarProductos() {
-      const productos = JSON.parse(window.localStorage?.getItem("carrito")) || [];
-      
       const contenedor = document.getElementById("productos-container");
       contenedor.innerHTML = '';
       total = 0;
 
-      if (productos.length === 0) {
+      if (carrito.length === 0) {
         contenedor.innerHTML = '<p style="text-align: center; color: #888;">Tu carrito está vacío</p>';
         document.querySelector('.comprar-btn').style.display = 'none';
+        document.getElementById('total').textContent = '0.00';
         return;
       }
 
-      productos.forEach((producto, index) => {
+      document.querySelector('.comprar-btn').style.display = 'block';
+
+      carrito.forEach((producto, index) => {
         const div = document.createElement("div");
         div.className = "producto";
         div.id = `producto${index}`;
@@ -332,7 +346,7 @@
             <p><strong>${producto.nombre}</strong></p>
             <p>Precio: $${producto.precio.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</p>
           </div>
-          <button class="btn-borrar" onclick="eliminarProducto('${index}', ${producto.precio})">Eliminar</button>
+          <button class="btn-borrar" onclick="eliminarProducto(${index})">Eliminar</button>
         `;
         contenedor.appendChild(div);
         total += producto.precio;
@@ -341,12 +355,8 @@
       document.getElementById('total').textContent = total.toLocaleString('es-MX', { minimumFractionDigits: 2 });
     }
 
-    function eliminarProducto(index, precio) {
-      const productos = JSON.parse(window.localStorage?.getItem("carrito")) || [];
-      productos.splice(index, 1);
-      if (window.localStorage) {
-        window.localStorage.setItem("carrito", JSON.stringify(productos));
-      }
+    function eliminarProducto(index) {
+      carrito.splice(index, 1);
       cargarProductos();
     }
 
@@ -516,9 +526,8 @@
       document.getElementById("codigoPago").innerHTML = codigoExtra;
       
       // Limpiar carrito
-      if (window.localStorage) {
-        window.localStorage.removeItem("carrito");
-      }
+      carrito = [];
+      total = 0;
     }
 
     function generarCodigoPago() {
@@ -526,7 +535,10 @@
     }
 
     function regresarATienda() {
-      window.location.reload();
+      document.querySelector('.carrito-container').style.display = "block";
+      document.getElementById('checkout').style.display = "none";
+      document.getElementById("mensajeGracias").style.display = "none";
+      cargarProductos();
     }
 
     // Formatear número de tarjeta mientras se escribe
