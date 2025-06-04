@@ -5,19 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gorras - Los BelicosMX</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+    
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #0b0b0b;
+      background: linear-gradient(135deg, #0b0b0b 0%, #1a1a1a 100%);
       color: white;
+      min-height: 100vh;
     }
+    
     header {
-      background-color: #111;
+      background: linear-gradient(45deg, #111, #222);
       padding: 15px;
       text-align: center;
       font-size: 1.5rem;
-      color: #ffd700;
+      background: linear-gradient(45deg, #ffd700, #ffed4a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+      animation: glow 2s ease-in-out infinite alternate;
     }
+
+    @keyframes glow {
+      from { filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); }
+      to { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8)); }
+    }
+
+    .header-cart {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .cart-icon {
+      position: relative;
+      background: linear-gradient(45deg, #ffd700, #ffed4a);
+      color: black;
+      border: none;
+      padding: 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .cart-icon:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #ff4444;
+      color: white;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+      animation: bounce 0.5s ease;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+
     .productos {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -27,24 +95,45 @@
       max-width: 1400px;
       margin: 0 auto;
     }
+    
     .producto {
-      background-color: white;
+      background: linear-gradient(145deg, white, #f0f0f0);
       color: black;
       padding: 20px;
-      border-radius: 8px;
+      border-radius: 15px;
       text-align: center;
       display: flex;
       flex-direction: column;
       height: 400px;
+      box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 215, 0, 0.1);
     }
+
+    .producto:hover {
+      transform: translateY(-10px);
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(255, 215, 0, 0.2);
+      border-color: rgba(255, 215, 0, 0.3);
+    }
+    
     .producto img {
       width: 100%;
       height: 250px;
       object-fit: cover;
-      border-radius: 6px;
+      border-radius: 10px;
       margin-bottom: 15px;
       flex-shrink: 0;
+      transition: transform 0.3s ease;
     }
+
+    .producto:hover img {
+      transform: scale(1.05);
+    }
+    
     .producto p {
       font-size: 1rem;
       margin: 10px 0;
@@ -54,61 +143,250 @@
       align-items: center;
       justify-content: center;
     }
+    
     .producto button {
       font-size: 0.9rem;
-      padding: 10px 16px;
-      border-radius: 6px;
-      background-color: #ffd700;
+      padding: 12px 20px;
+      border-radius: 25px;
+      background: linear-gradient(45deg, #ffd700, #ffed4a);
       color: black;
       border: none;
       cursor: pointer;
       font-weight: bold;
       flex-shrink: 0;
-      transition: background 0.3s;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
+    
     .producto button:hover {
-      background-color: #e6c200;
+      background: linear-gradient(45deg, #ffed4a, #ffd700);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
     }
-    #carrito {
+
+    .producto button:active {
+      transform: translateY(0);
+    }
+
+    .cart-modal {
+      display: none;
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #ffd700;
-      color: black;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      backdrop-filter: blur(5px);
+    }
+
+    .cart-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(145deg, #1c1c1c, #2a2a2a);
+      padding: 30px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .cart-title {
+      font-size: 1.8rem;
+      color: #ffd700;
+      margin: 0;
+    }
+
+    .close-cart {
+      background: none;
       border: none;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
+      color: #ffd700;
       font-size: 1.5rem;
+      cursor: pointer;
+      padding: 5px;
+      transition: color 0.3s ease;
+    }
+
+    .close-cart:hover {
+      color: #ffed4a;
+    }
+
+    .cart-item {
       display: flex;
       align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 12px #ffd700;
+      gap: 15px;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .cart-item img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .item-details {
+      flex: 1;
+    }
+
+    .item-name {
+      font-weight: 600;
+      color: white;
+      margin: 0 0 5px 0;
+    }
+
+    .item-price {
+      color: #ffd700;
+      font-weight: bold;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    .quantity-btn {
+      background: #ffd700;
+      color: black;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
       cursor: pointer;
-      z-index: 1000;
-      transition: background 0.3s;
+      font-weight: bold;
+      transition: all 0.3s ease;
     }
-    #carrito:hover {
-      background-color: #e6c200;
+
+    .quantity-btn:hover {
+      background: #ffed4a;
+      transform: scale(1.1);
     }
+
+    .quantity {
+      font-weight: bold;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .remove-item {
+      background: #ff4444;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.3s ease;
+    }
+
+    .remove-item:hover {
+      background: #ff6666;
+    }
+
+    .cart-total {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 2px solid rgba(255, 215, 0, 0.3);
+      text-align: center;
+    }
+
+    .total-amount {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #ffd700;
+      margin: 10px 0;
+    }
+
+    .checkout-btn {
+      background: linear-gradient(45deg, #ffd700, #ffed4a);
+      color: black;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: bold;
+      width: 100%;
+      margin-top: 15px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .checkout-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 40px 20px;
+      color: #888;
+    }
+    
     .btn-regresar {
       display: block;
       margin: 30px auto;
-      background-color: #ffd700;
+      background: linear-gradient(45deg, #ffd700, #ffed4a);
       color: black;
       padding: 12px 24px;
       border: none;
-      border-radius: 8px;
+      border-radius: 25px;
       text-align: center;
       font-weight: bold;
       cursor: pointer;
       text-decoration: none;
-      transition: background 0.3s;
+      transition: all 0.3s ease;
       font-size: 1rem;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
+    
     .btn-regresar:hover {
-      background-color: #e6c200;
+      background: linear-gradient(45deg, #ffed4a, #ffd700);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
     }
+
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(45deg, #00ff88, #00cc6a);
+      color: black;
+      padding: 15px 25px;
+      border-radius: 10px;
+      font-weight: bold;
+      z-index: 3000;
+      transform: translateX(400px);
+      transition: transform 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+    }
+
+    .notification.show {
+      transform: translateX(0);
+    }
+    
     @media (max-width: 768px) {
       .productos {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -124,43 +402,205 @@
       .producto p {
         font-size: 0.9rem;
       }
+      .cart-content { 
+        width: 95%; 
+        padding: 20px;
+      }
+      .cart-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="header-cart">
+    <button class="cart-icon" onclick="toggleCart()">
+      🛒
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+
   <header>Gorras Bélicas</header>
   <div class="productos">
     <div class="producto">
       <img src="5.jpeg" alt="Gorra 1">
       <p>CHROME ROSE GOLD - $11,000</p>
-      <button onclick="agregarAlCarrito('CHROME ROSE GOLD', 11000, 'gorra1.jpg')">Agregar al carrito</button>
+      <button onclick="agregarAlCarrito('CHROME ROSE GOLD', 11000, '5.jpeg')">Agregar al carrito</button>
     </div>
     <div class="producto">
       <img src="6.jpeg" alt="Gorra 2">
       <p>Dandy Hats Sad Boyz - $2600</p>
-      <button onclick="agregarAlCarrito('Dandy Hats Sad Boyz', 2600, 'gorra2.jpg')">Agregar al carrito</button>
+      <button onclick="agregarAlCarrito('Dandy Hats Sad Boyz', 2600, '6.jpeg')">Agregar al carrito</button>
     </div>
     <div class="producto">
       <img src="24.jpeg" alt="Gorra 3">
       <p>Dandy Hats Clave Ali - $3500</p>
-      <button onclick="agregarAlCarrito('Dandy Hats Clave Ali', 3500, '7.jpeg')">Agregar al carrito</button>
+      <button onclick="agregarAlCarrito('Dandy Hats Clave Ali', 3500, '24.jpeg')">Agregar al carrito</button>
     </div>
     <div class="producto">
       <img src="25.jpeg" alt="Gorra 4">
       <p>31 Hats El Mago - $3500</p>
-      <button onclick="agregarAlCarrito('31 Hats El Mago', 3500, '7.jpeg')">Agregar al carrito</button>
+      <button onclick="agregarAlCarrito('31 Hats El Mago', 3500, '25.jpeg')">Agregar al carrito</button>
     </div>
   </div>
+
+  <div class="cart-modal" id="cartModal">
+    <div class="cart-content">
+      <div class="cart-header">
+        <h2 class="cart-title">Mi Carrito</h2>
+        <button class="close-cart" onclick="toggleCart()">&times;</button>
+      </div>
+      <div id="cartItems"></div>
+      <div class="cart-total">
+        <div class="total-amount">Total: $<span id="totalAmount">0</span></div>
+        <button class="checkout-btn" onclick="proceedToCheckout()">Proceder al Pago</button>
+      </div>
+    </div>
+  </div>
+
   <a href="index.html" class="btn-regresar">Regresar a la tienda</a>
-  <button id="carrito" onclick="window.location.href='carrito.html'">🛒</button>
+  
   <script>
+    let carrito = [];
+
     function agregarAlCarrito(nombre, precio, imagen) {
-      const producto = { nombre, precio, imagen };
-      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-      carrito.push(producto);
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-      alert('Producto agregado al carrito');
+      const existingItem = carrito.find(item => item.nombre === nombre);
+      
+      if (existingItem) {
+        existingItem.cantidad += 1;
+      } else {
+        const producto = { 
+          id: Date.now() + Math.random(),
+          nombre, 
+          precio, 
+          imagen,
+          cantidad: 1
+        };
+        carrito.push(producto);
+      }
+
+      actualizarCarrito();
+      mostrarNotificacion('agregado al carrito', nombre);
     }
+
+    function eliminarDelCarrito(id) {
+      const item = carrito.find(item => item.id === id);
+      carrito = carrito.filter(item => item.id !== id);
+      actualizarCarrito();
+      if (item) {
+        mostrarNotificacion('eliminado del carrito', item.nombre);
+      }
+    }
+
+    function cambiarCantidad(id, cambio) {
+      const item = carrito.find(item => item.id === id);
+      if (item) {
+        item.cantidad += cambio;
+        if (item.cantidad <= 0) {
+          eliminarDelCarrito(id);
+        } else {
+          actualizarCarrito();
+        }
+      }
+    }
+
+    function actualizarCarrito() {
+      const cartCount = document.getElementById('cartCount');
+      const cartItems = document.getElementById('cartItems');
+      const totalAmount = document.getElementById('totalAmount');
+
+      const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+      cartCount.textContent = totalItems;
+      cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
+
+      if (carrito.length === 0) {
+        cartItems.innerHTML = '<div class="empty-cart">Tu carrito está vacío</div>';
+        totalAmount.textContent = '0';
+        return;
+      }
+
+      let cartHTML = '';
+      let total = 0;
+
+      carrito.forEach(item => {
+        const subtotal = item.precio * item.cantidad;
+        total += subtotal;
+        
+        cartHTML += `
+          <div class="cart-item">
+            <img src="${item.imagen}" alt="${item.nombre}">
+            <div class="item-details">
+              <div class="item-name">${item.nombre}</div>
+              <div class="item-price">$${item.precio.toLocaleString()}</div>
+              <div class="quantity-controls">
+                <button class="quantity-btn" onclick="cambiarCantidad(${item.id}, -1)">-</button>
+                <span class="quantity">${item.cantidad}</span>
+                <button class="quantity-btn" onclick="cambiarCantidad(${item.id}, 1)">+</button>
+              </div>
+              <div style="font-size: 0.9rem; color: #ffd700;">
+                Subtotal: $${subtotal.toLocaleString()}
+              </div>
+            </div>
+            <button class="remove-item" onclick="eliminarDelCarrito(${item.id})">Eliminar</button>
+          </div>
+        `;
+      });
+
+      cartItems.innerHTML = cartHTML;
+      totalAmount.textContent = total.toLocaleString();
+    }
+
+    function toggleCart() {
+      const modal = document.getElementById('cartModal');
+      const isVisible = modal.style.display === 'block';
+      modal.style.display = isVisible ? 'none' : 'block';
+      
+      if (!isVisible) {
+        actualizarCarrito();
+      }
+    }
+
+    function proceedToCheckout() {
+      if (carrito.length === 0) {
+        alert('Tu carrito está vacío');
+        return;
+      }
+      
+      const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+      const itemCount = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+      
+      alert(`¡Gracias por tu compra!\n\nResumen:\n${itemCount} artículos\nTotal: $${total.toLocaleString()}\n\nEn breve te contactaremos para confirmar tu pedido.`);
+      
+      carrito = [];
+      actualizarCarrito();
+      toggleCart();
+    }
+
+    function mostrarNotificacion(mensaje, nombre) {
+      const notification = document.createElement('div');
+      notification.className = 'notification';
+      notification.innerHTML = `<strong>${nombre}</strong><br>${mensaje}`;
+      document.body.appendChild(notification);
+
+      setTimeout(() => notification.classList.add('show'), 100);
+
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => document.body.removeChild(notification), 300);
+      }, 3000);
+    }
+
+    document.getElementById('cartModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        toggleCart();
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', function() {
+      actualizarCarrito();
+    });
   </script>
 </body>
 </html>
